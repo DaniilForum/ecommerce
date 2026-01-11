@@ -1,0 +1,8 @@
+# Tasks: Member 1 (Products & Home Page)
+
+## 1. Tasks
+*   **Frontend:**
+    *   UI for the home page (banner, top-selling).
+    *   UI for the product list page (with search and filters).
+    *   UI for the product details page.
+    *   Implement the "Add to Cart" button (calls Member 2's API).

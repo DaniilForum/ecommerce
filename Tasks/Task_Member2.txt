@@ -1,0 +1,34 @@
+# Tasks: Member 2 (Authentication & Cart)
+
+## 1. Tasks
+*   **Backend:**
+    *   Implement JWT middleware to protect routes.
+    *   Create Cart APIs (`/api/cart`, `/cart/add`, `/cart/remove`).
+    *   Create the checkout simulation API.
+*   **Frontend:**
+    *   UI for Cart and Checkout pages.
+
+### Cart APIs (Your Responsibility)
+
+| Method | Endpoint           | Description          |
+| :----- | :----------------- | :------------------- |
+| `GET`  | `/api/cart`        | Get user's cart      |
+| `POST` | `/api/cart/add`    | Add item to cart     |
+| `POST` | `/api/cart/remove` | Remove item from cart|
+
+**Sample Cart Model:**
+```json
+{
+  "userId": "u123",
+  "items": [
+    { "productId": "p101", "quantity": 2, "price": 79999 },
+    { "productId": "p102", "quantity": 1, "price": 8999 }
+  ]
+}
+```
+
+### Checkout API (Your Responsibility)
+
+| Method | Endpoint        | Description                 |
+| :----- | :-------------- | :-------------------------- |
+| `POST` | `/api/checkout` | Simulate successful payment |

@@ -1,0 +1,60 @@
+.admin-panel-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.admin-panel-header {
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  padding: 40px;
+  border-radius: var(--border-radius);
+  color: white;
+  box-shadow: var(--shadow-lg);
+}
+
+.admin-panel-header h1 {
+  margin: 0 0 16px 0;
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.admin-tabs button {
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-tabs button:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  transform: translateY(-2px);
+}
+
+.admin-tabs button.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.admin-content {
+  background: var(--color-surface);
+  padding: 28px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+}

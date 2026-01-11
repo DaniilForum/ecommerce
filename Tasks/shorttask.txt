@@ -1,0 +1,61 @@
+# Quick Project Setup Guide
+
+This guide will help you set up and run the project from scratch.
+
+## Prerequisites
+
+- React + Vite
+- Node.js & npm
+- MongoDB (a local instance or a cloud-based one like MongoDB Atlas)
+
+---
+
+## 1. Backend Setup (Node.js + Express)
+
+1.  Navigate to the `backend` directory:
+    ```bash
+    cd backend
+    ```
+2.  Install all required dependencies:
+    ```bash
+    npm install
+    ```
+
+---
+
+## 2. Frontend Setup (React + Vite)
+
+This section assumes you are in the project's root directory (the one containing the `backend` folder).
+
+1.  Create a new React + Vite project named `frontend`:
+    ```bash
+    npm create vite@latest frontend -- --template react
+    ```
+2.  Navigate into the new `frontend` directory:
+    ```bash
+    cd frontend
+    ```
+3.  Install all required dependencies:
+    ```bash
+    npm install
+    ```
+4.
+    npm install react-router-dom
+
+---
+
+## 3. Running the Application
+
+**Important:** Both the backend and frontend servers must be running at the same time for the application to work correctly.
+
+1.  **Terminal 1 (Backend):**
+    ```bash
+    cd backend
+    npm run dev
+    ```
+2.  **Terminal 2 (Frontend):**
+    ```bash
+    cd frontend
+    npm run dev
+    ```
+    npm install jwt-decode

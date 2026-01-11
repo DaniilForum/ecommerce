@@ -1,0 +1,167 @@
+# E-Commerce Project Plan
+
+## Tech Stack
+
+*   **Frontend**: React.js, Axios, React Router
+*   **Backend**: Node.js, Express.js, MongoDB, JWT Authentication
+*   **Other**: bcrypt for password hashing, Multer for image uploads
+
+## 1. Project Overview
+
+Creation of a basic e-commerce web application with the following pages and functionality.
+
+### Frontend Pages
+
+1.  **Home Page**
+    *   Display special offers
+    *   Display top-selling products
+2.  **Product Search & Listing Page**
+    *   Filter by category
+    *   Search bar
+3.  **Product Details Page**
+4.  **Shopping Cart Page**
+5.  **Checkout Simulation Page**
+6.  **User Registration & Login (JWT)**
+7.  **Admin Dashboard**
+    *   Manage Products
+    *   Manage Categories
+    *   Manage Users
+
+## 2. API Endpoints (with sample data)
+
+### Auth APIs
+
+| Method | Endpoint             | Description               |
+| :----- | :------------------- | :------------------------ |
+| `POST` | `/api/auth/register` | User registration         |
+| `POST` | `/api/auth/login`    | Login + get JWT token     |
+
+**Sample registration request:** `POST /api/auth/register`
+```json
+{
+  "name": "John Doe",
+  "email": "john@gmail.com",
+  "password": "123456"
+}
+```
+
+**Responce sample:**
+```json
+{
+  "message": "Registration successful",
+  "user": { "id": "u123", "name": "John Doe" },
+  "token": "eyJhbGciOiJIUzI1..."
+}
+```
+
+### Product APIs
+
+| Method   | Endpoint              | Description                            |
+| :------- | :-------------------- | :------------------------------------- |
+| `GET`    | `/api/products`       | Product list (search and filter)       |
+| `GET`    | `/api/products/:id`   | Product details                        |
+| `POST`   | `/api/products`       | Create product (Admin)                 |
+| `PUT`    | `/api/products/:id`   | Update product (Admin)                 |
+| `DELETE` | `/api/products/:id`   | Delete product (Admin)                 |
+
+**Product sample:**
+```json
+{
+  "_id": "p101",
+  "name": "iPhone 15",
+  "category": "Mobiles",
+  "price": 79999,
+  "stock": 10,
+  "rating": 4.5,
+  "topSelling": true,
+  "offer": "10% off"
+}
+```
+
+### Category APIs
+
+| Method   | Endpoint                |
+| :------- | :---------------------- |
+| `GET`    | `/api/categories`       |
+| `POST`   | `/api/categories`       |
+| `PUT`    | `/api/categories/:id`   |
+| `DELETE` | `/api/categories/:id`   |
+
+### User Management APIs (Admin only)
+
+| Method   | Endpoint                |
+| :------- | :---------------------- |
+| `GET`    | `/api/admin/users`      |
+| `DELETE` | `/api/admin/users/:id`  |
+
+### Cart APIs
+
+| Method   | Endpoint             |
+| :------- | :------------------- |
+| `GET`    | `/api/cart`          |
+| `POST`   | `/api/cart/add`      |
+| `POST`   | `/api/cart/remove`   |
+
+### Checkout API
+
+| Method| Endpoint        | Description               |
+| :---- | :-------------- | :------------------------ |
+| `POST`| `/api/checkout` | Checkout simulation       |
+
+**Response sample:**
+```json
+{
+  "status": "success",
+  "orderId": "ORD00123",
+  "amount": 159998
+}
+```
+
+## 3. Team and Task Distribution
+
+Your team consists of 3 people. Tasks are divided vertically (each member is responsible for their "slice" from start to finish).
+
+### Member 1: Products and Home Page Module (Frontend + Backend)
+*   **Backend Tasks:**
+    ✓   Create API for products (`GET /api/products`, `GET /api/products/:id`).
+    *   Add filters: search, category.
+    *   Populate the database with sample products.
+    *   Create API for the home page (top-selling products and offers).
+*   **Frontend Tasks:**
+    *   Home page UI.
+    *   Offers banner.
+    *   Top-selling products section.
+    *   Product list page.
+    *   Product details page (with "Add to Cart" button).
+
+### Member 2: Authentication, Users, and Cart Module
+*   **Backend Tasks:**
+    ✓   Create authentication API (`/register`, `/login`).
+    ✓   Implement JWT middleware.
+    ✓   Create user model.
+    *   Create Cart API (`/api/cart`, `/cart/add`).
+    *   Create API for checkout simulation.
+*   **Frontend Tasks:**
+    ✓   Login and registration pages.
+    ✓   Store JWT token in `localStorage`.
+    *   Protected routes.
+    *   Cart page UI.
+    *   Checkout page UI.
+
+### Member 3: Admin Module (Products + Categories + Users)
+*   **Backend Tasks:**
+    ✓   Create CRUD API for admin (products, categories, users).
+    ✓   Implement role-based authorization middleware.
+*   **Frontend Tasks:**
+    ✓   Admin dashboard layout.
+    ✓   UI for product management.
+    ✓   UI for category management.
+    ✓   UI for viewing and blocking users.
+
+## 4. Time Plan
+
+| Week    | Tasks                                                 |
+| :------ | :---------------------------------------------------- |
+| **Week 1**   | Project setup, DB models, Auth and Product APIs.      |
+| **Week 2**   | Frontend pages, cart, checkout, admin pages.          |
+| **Week 3**   | Integration testing, UI polishing, deployment.        |
