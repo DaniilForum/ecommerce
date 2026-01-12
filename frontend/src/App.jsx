@@ -12,10 +12,10 @@ import Footer from './components/Footer';
 
 const App = () => {
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navbar />
 
-      <main style={{ padding: 20 }}>
+      <main style={{ padding: 20, flex: 1 }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/admin/*" element={<AdminPage />} />
