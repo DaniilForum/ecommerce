@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getProfile } from '../api/authApi';
 import './Navbar.css';
+import logo from '../assets/eshop_logo.png';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -45,14 +46,17 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div>
-        <Link to="/">Home</Link>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+        <Link to="/" className="logo-link">
+          <img src={logo} alt="Store Logo" style={{ height: '120px', objectFit: 'contain', marginTop: '-50px', marginBottom: '-60px' }} />
+        </Link>
+        {/* <Link to="/">Home</Link> */}
         <Link to="/products">Products</Link>
       </div>
 
       <div>
         {/* right-side controls: cart then user */}
-        <Link to="/cart">Cart</Link>
+        {user && <Link to="/cart">Cart</Link>}
 
         {/* only show Admin link for admin users */}
         {user && user.role === 'admin' && (

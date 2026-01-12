@@ -44,3 +44,9 @@ nav button {
 nav button:hover {
   background: var(--color-primary-hover);
 }
+
+nav .logo-link,
+nav .logo-link:hover {
+  background: transparent;
+  padding: 0;
+}
