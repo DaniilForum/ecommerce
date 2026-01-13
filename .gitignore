@@ -1,0 +1,25 @@
+node_modules/
+
+ecommerce/
+
+.env
+.env.local
+.env.*.local
+
+# build
+dist/
+build/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# system files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
