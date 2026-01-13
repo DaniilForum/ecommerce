@@ -30,7 +30,7 @@ const ProductModal = ({ product, onClose, onAdd }) => {
     return (
         <div className="pm-overlay" ref={overlayRef} onClick={(e) => { if (e.target === overlayRef.current) onClose(); }}>
         <div className="pm-panel">
-            <button style={{ position: 'absolute', top: 10, right: 10 }} onClick={onClose}>×</button>
+            <button className="pm-close" onClick={onClose}>×</button>
 
             <div className="pm-content">
             <div className="pm-left">
@@ -42,18 +42,25 @@ const ProductModal = ({ product, onClose, onAdd }) => {
             </div>
 
             <div className="pm-right">
-                <h2 className="pm-title">{product.name}</h2>
+                <h2 className="pm-title">{product.name} {product.topSelling && <span className="pm-pill">Top</span>}</h2>
+                {product.offer && <div className="pm-offer">{product.offer}</div>}
+                <div className="rating pm-rating">
+                    <span className="stars">{[0,1,2,3,4].map(i => (
+                        <span key={i} className={i < Math.round(product.rating || 0) ? 'star filled' : 'star'}>★</span>
+                    ))}</span>
+                    <span className="rating-num">{(product.rating || 0).toFixed(1)}</span>
+                </div>
                 <p className="pm-desc">{product.description || '—'}</p>
                 <div className="pm-stock">Stock: <strong>{product.stock ?? 0}</strong></div>
 
-                <div className="pm-actions" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                    <div className="prod-qty-selector">
-                        <button className="prod-qty-btn" onClick={decrease}>&lt;</button>
-                        <span className="prod-qty-val">{qty}</span>
+                <div className="pm-actions">
+                    <div className="pm-qty">
+                        <button onClick={decrease}>&lt;</button>
+                        <span className="pm-qty-val">{qty}</span>
                         <button onClick={increase}>&gt;</button>
                     </div>
-                    <div style={{ position: 'relative' }}>
-                        <button onClick={handleAdd}>Add</button>
+                    <div className="pm-add-wrapper">
+                        <button className="pm-add" onClick={handleAdd}>Add</button>
                         {showFeedback && (
                             <span className="pm-added-msg">Added!</span>
                         )}

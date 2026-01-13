@@ -3,7 +3,7 @@ const Product = require('../models/Product');
 // Create product
 exports.createProduct = async (req, res) => {
   try {
-    const { name, description, price, category, image, stock } = req.body;
+    const { name, description, price, category, image, stock, rating, topSelling, offer } = req.body;
 
     if (!name || !price || !category) {
       return res.status(400).json({ message: 'Name, price, and category are required' });
@@ -16,6 +16,9 @@ exports.createProduct = async (req, res) => {
       category,
       image,
       stock,
+      rating: typeof rating === 'number' ? rating : undefined,
+      topSelling: typeof topSelling === 'boolean' ? topSelling : undefined,
+      offer,
     });
 
     await product.save();
@@ -29,11 +32,15 @@ exports.createProduct = async (req, res) => {
 exports.updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, description, price, category, image, stock } = req.body;
+    const { name, description, price, category, image, stock, rating, topSelling, offer } = req.body;
+
+    const update = { name, description, price, category, image, stock, offer };
+    if (typeof rating === 'number') update.rating = rating;
+    if (typeof topSelling === 'boolean') update.topSelling = topSelling;
 
     const product = await Product.findByIdAndUpdate(
       id,
-      { name, description, price, category, image, stock },
+      update,
       { new: true, runValidators: true }
     );
 

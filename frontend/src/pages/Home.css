@@ -8,7 +8,6 @@
   position: relative;
   width: 100%;
   height: 500px;
-  /* background: url('https://miro.medium.com/1*iAu65xDmvpVdBJgps6EDEw.png') no-repeat center center/cover; */
   background: url('https://png.pngtree.com/thumb_back/fh260/background/20231001/pngtree-vibrant-purple-background-with-shopping-bags-illustrating-the-business-and-online-image_13543981.png') no-repeat center center/cover;
   display: flex;
   align-items: center;
@@ -200,3 +199,77 @@
   color: var(--color-text-secondary);
   font-size: 1.1rem;
 }
+
+/* Carousel Styles */
+.carousel-wrapper {
+  position: relative;
+  padding: 0 10px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 10px 4px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.carousel-item {
+  /* 5 items visible: (100% - 4 gaps of 20px) / 5 = 20% - 16px */
+  flex: 0 0 calc(20% - 16px);
+  min-width: 0;
+}
+
+.carousel-item .product-card {
+  height: 100%;
+}
+
+.carousel-item .product-media {
+  height: 150px;
+}
+
+.carousel-item .product-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #333;
+  transition: all 0.2s;
+}
+
+.carousel-arrow:hover {
+  background: #f8f9fa;
+  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  transform: translateY(-50%);
+}
+
+.carousel-arrow.left { left: -15px; }
+.carousel-arrow.right { right: -15px; }
+
+@media (max-width: 1024px) { .carousel-item { flex: 0 0 calc(33.333% - 14px); } }
+@media (max-width: 768px) { .carousel-item { flex: 0 0 calc(50% - 10px); } }
+@media (max-width: 480px) { .carousel-item { flex: 0 0 100%; } }

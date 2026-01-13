@@ -1,5 +1,6 @@
 // Controller for Cart
 const Cart = require('../models/Cart');
+const User = require('../models/User');
 
 // Add item to cart (or adjust quantity). Accepts positive or negative quantity.
 exports.addToCart = async (req, res) => {
@@ -8,6 +9,10 @@ exports.addToCart = async (req, res) => {
     if (!productId || qty === 0) return res.status(400).json({ message: 'productId and non-zero quantity required' });
 
     try {
+        // Prevent blocked users from modifying cart
+        const user = await User.findById(req.user.id).select('isBlocked');
+        if (user && user.isBlocked) return res.status(403).json({ message: 'User is blocked' });
+
         let cart = await Cart.findOne({ userId: req.user.id });
         if (cart) {
             const itemIndex = cart.items.findIndex(item => item.productId.toString() === productId.toString());

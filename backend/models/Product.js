@@ -25,6 +25,20 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    rating: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 5,
+    },
+    topSelling: {
+      type: Boolean,
+      default: false,
+    },
+    offer: {
+      type: String,
+      default: '',
+    },
   },
   { timestamps: true }
 );

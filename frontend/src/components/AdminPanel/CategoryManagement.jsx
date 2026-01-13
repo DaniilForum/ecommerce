@@ -40,22 +40,22 @@ const CategoryManagement = () => {
   return (
     <div className="cm-wrapper">
       <h2>Categories</h2>
-      <button onClick={() => { setForm({ name: '', description: '' }); setEditingId(null); setShowModal(true); }} style={{ marginBottom: '20px' }}>Add Category</button>
+      <button className="cm-btn-add" onClick={() => { setForm({ name: '', description: '' }); setEditingId(null); setShowModal(true); }}>Add Category</button>
 
       {showModal && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-          <div style={{ background: '#fff', padding: '20px', borderRadius: '8px', width: '600px', maxWidth: '90%', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
-            <h3 style={{ marginTop: 0 }}>{editingId ? 'Edit Category' : 'New Category'}</h3>
-            <form onSubmit={submit} className="cm-form" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <label style={{ width: '100px', fontWeight: 'bold' }}>Name: <span style={{ color: 'red' }}>*</span></label>
-                <input placeholder="Name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required style={{ flex: 1, padding: '8px', border: '1px solid #ddd', borderRadius: '4px' }} />
+        <div className="cm-modal-overlay">
+          <div className="cm-modal-content">
+            <h3 className="cm-modal-title">{editingId ? 'Edit Category' : 'New Category'}</h3>
+            <form onSubmit={submit} className="cm-modal-form">
+              <div className="cm-form-row">
+                <label className="cm-label">Name: <span className="cm-required">*</span></label>
+                <input className="cm-input" placeholder="Name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required />
               </div>
-              <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-                <label style={{ width: '100px', fontWeight: 'bold', marginTop: '8px' }}>Desc:</label>
-                <textarea placeholder="Description" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} style={{ flex: 1, padding: '8px', border: '1px solid #ddd', borderRadius: '4px', minHeight: '100px', resize: 'vertical', fontFamily: 'inherit' }} />
+              <div className="cm-form-row align-start">
+                <label className="cm-label mt">Desc:</label>
+                <textarea className="cm-textarea" placeholder="Description" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} />
               </div>
-              <div style={{ display: 'flex', gap: '10px', marginTop: '10px', justifyContent: 'flex-end' }}>
+              <div className="cm-modal-actions">
                 <button type="button" onClick={() => setShowModal(false)}>Cancel</button>
                 <button type="submit">{editingId ? 'Update' : 'Create'}</button>
               </div>

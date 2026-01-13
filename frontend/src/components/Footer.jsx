@@ -39,7 +39,7 @@ const Footer = () => {
             </div>
 
             <div className="footer-section to-top">
-            <button className="to-top-btn" onClick={scrollTop} aria-label="Scroll to top" style={{ width: '50px', height: '50px', borderRadius: '50%', fontSize: '24px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>↑</button>
+            <button className="to-top-btn" onClick={scrollTop} aria-label="Scroll to top">↑</button>
             </div>
         </div>
         <div className="footer-bottom">© {new Date().getFullYear()} E-Shop Company. All rights reserved.</div>

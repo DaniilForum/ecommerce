@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getCart, removeFromCart, addToCart } from '../api/cartApi';
+import { getProfile } from '../api/authApi';
+import CheckoutModal from '../components/CheckoutModal';
 import './Cart.css';
 
 const Cart = () => {
@@ -7,6 +9,9 @@ const Cart = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selected, setSelected] = useState(new Set());
+    // Checkout modal state
+    const [showCheckout, setShowCheckout] = useState(false);
+    const [isBlocked, setIsBlocked] = useState(false);
 
     // Fetch cart data from API
     const fetch = async () => {
@@ -91,18 +96,41 @@ const Cart = () => {
         return sum + price * qty;
     }, 0);
 
+    // Checkout modal helpers
+    const openCheckout = async () => {
+        try {
+            const profile = await getProfile();
+            if (profile?.data?.isBlocked) {
+                setIsBlocked(true);
+                window.alert('Your account is blocked. You cannot complete checkout.');
+                return;
+            }
+        } catch (err) {
+            console.warn('Profile check failed', err);
+        }
+        setShowCheckout(true);
+    };
+    const closeCheckout = () => setShowCheckout(false);
+
+    const handlePaymentSuccess = () => {
+        alert('Payment successful!');
+        fetch();
+        closeCheckout();
+    };
+
     if (loading) return <div className="cart-loading">Loading the cart...</div>;
-    if (error) return <div className="cart-error">Error: {error}</div>;
+    if (error) return <div className="cart-error">Error: {error}</div>; 
 
     return (
         <div className="cart-page">
+        {isBlocked && <div className="cart-blocked-notice">Your account is blocked. You cannot proceed to checkout or add/update quantities.</div>}
         <h2>Your cart:</h2>
         {cart.items.length === 0 ? (
             <div className="cart-empty">Cart is empty</div>
         ) : (
             <div className="cart-list">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '15px', padding: '10px', background: '#fff', borderRadius: '8px', marginBottom: '10px', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+            <div className="cart-bulk-actions">
+                <label className="cart-select-all-label">
                     <input type="checkbox"
                         checked={cart.items.length > 0 && selected.size === cart.items.length}
                         onChange={toggleSelectAll}
@@ -119,7 +147,7 @@ const Cart = () => {
                 const p = it.productId || {};
                 return (
                 <div className="cart-item" key={p._id || Math.random()}>
-                    <div style={{ display: 'flex', alignItems: 'center', paddingRight: '10px' }}><input type="checkbox" checked={selected.has(p._id)} onChange={() => toggleSelect(p._id)} /></div>
+                    <div className="cart-item-checkbox"><input type="checkbox" checked={selected.has(p._id)} onChange={() => toggleSelect(p._id)} /></div>
                     <div className="ci-media">
                     {p.image ? <img src={p.image} alt={p.name} /> : <div className="ci-placeholder" />}
                     </div>
@@ -139,7 +167,19 @@ const Cart = () => {
             <div className="cart-summary">
                 <div>Total:</div>
                 <div className="cart-total">${total.toFixed(2)}</div>
+                <div>
+                    <button className="button" onClick={openCheckout} disabled={cart.items.length === 0 || isBlocked} title={isBlocked ? 'Your account is blocked' : ''}>Checkout</button>
+                </div>
             </div>
+
+            {showCheckout && (
+                <CheckoutModal
+                    onClose={closeCheckout}
+                    onSuccess={handlePaymentSuccess}
+                    total={total}
+                    isBlocked={isBlocked}
+                />
+            )}
             </div>
         )}
         </div>

@@ -1,0 +1,23 @@
+.checkout-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 600;
+}
+.checkout-modal {
+    background: #fff;
+    padding: 20px;
+    width: 420px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.checkout-modal h3 { margin-top: 0; margin-bottom: 12px; }
+.checkout-form label { display: block; margin-bottom: 10px; font-size: 14px; }
+.checkout-form input { width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid #ddd; margin-top: 6px; box-sizing: border-box; }
+.checkout-form .row { display:flex; gap: 10px; }
+.field-error { color: #b00020; font-size: 13px; margin-top: 6px; }
+.modal-actions { display:flex; justify-content:flex-end; gap: 8px; margin-top: 12px; }
+.btn-pay { background: #00a86b; color: #fff; border: none; padding: 8px 12px; border-radius:6px; cursor: pointer; }

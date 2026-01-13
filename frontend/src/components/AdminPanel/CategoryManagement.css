@@ -80,3 +80,83 @@
   background: var(--color-error);
   color: white;
 }
+
+/* Modal & Form Styles extracted from JSX */
+.cm-btn-add {
+  margin-bottom: 20px;
+}
+
+.cm-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.cm-modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 600px;
+  max-width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cm-modal-title {
+  margin-top: 0;
+}
+
+.cm-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cm-form-row {
+  display: flex;
+  align-items: center;
+}
+
+.cm-form-row.align-start {
+  align-items: flex-start;
+}
+
+.cm-label {
+  width: 100px;
+  font-weight: bold;
+}
+
+.cm-label.mt {
+  margin-top: 8px;
+}
+
+.cm-required {
+  color: red;
+}
+
+.cm-input,
+.cm-textarea {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.cm-textarea {
+  min-height: 100px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.cm-modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: flex-end;
+}

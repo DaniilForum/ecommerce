@@ -13,6 +13,33 @@
 .cart-summary { display:flex; justify-content: space-between; align-items: center; margin-top: 8px; padding: 12px; border-radius: 8px; background: #fafafa; }
 .cart-total { font-weight: 800; font-size: 18px; }
 
+.checkout-btn { background: #00a86b; color: #fff; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; }
+.cart-bulk-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.cart-select-all-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cart-item-checkbox {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+}
+
+
 @media (max-width:720px) {
     .cart-item { flex-direction: row; }
 }

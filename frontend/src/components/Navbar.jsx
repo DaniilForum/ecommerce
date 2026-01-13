@@ -40,6 +40,32 @@ const Navbar = () => {
     return () => document.removeEventListener('click', onDoc);
   }, []);
 
+  // Global Scroll Restoration (handles F5/Refresh)
+  useEffect(() => {
+    // Save position before reload
+    const handleBeforeUnload = () => {
+      sessionStorage.setItem('scrollPos', window.scrollY.toString());
+      sessionStorage.setItem('scrollUrl', window.location.href);
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // Restore position after reload
+    const savedUrl = sessionStorage.getItem('scrollUrl');
+    const savedPos = sessionStorage.getItem('scrollPos');
+
+    if (savedUrl === window.location.href && savedPos) {
+      const y = parseInt(savedPos, 10);
+      // Try to scroll periodically to handle async content loading
+      const interval = setInterval(() => {
+        if (window.scrollY !== y) window.scrollTo(0, y);
+      }, 50);
+      // Stop trying after 1 second
+      setTimeout(() => { clearInterval(interval); sessionStorage.removeItem('scrollPos'); sessionStorage.removeItem('scrollUrl'); }, 1000);
+    }
+
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     setUser(null);
@@ -59,19 +85,19 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+      <div className="nav-left">
         <Link to="/" className="logo-link">
-          <img src={logo} alt="Store Logo" style={{ height: '120px', objectFit: 'contain', marginTop: '-50px', marginBottom: '-60px' }} />
+          <img src={logo} alt="Store Logo" className="nav-logo" />
         </Link>
         {/* <Link to="/">Home</Link> */}
         <Link to="/products">Products</Link>
-        <form onSubmit={handleSearch} style={{ display: 'flex', width: '250px' }}>
+        <form onSubmit={handleSearch} className="nav-search-form">
           <input
             type="text"
             placeholder="Search products..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            style={{ width: '100%', padding: '8px 12px', borderRadius: '20px', border: '1px solid #9370b0', backgroundColor: '#f5f5f5', outline: 'none', fontSize: '15px', color: '#333' }}
+            className="nav-search-input"
           />
         </form>
       </div>
@@ -91,14 +117,14 @@ const Navbar = () => {
             <Link to="/login">Login</Link>
           </>
         ) : (
-          <div ref={dropdownRef} style={{ display: 'inline-block', position: 'relative' }}>
-            <button onClick={() => setOpen(s => !s)} style={{ marginLeft: 12 }}>{user.name || user.email || 'User'}</button>
+          <div ref={dropdownRef} className="nav-user-dropdown">
+            <button onClick={() => setOpen(s => !s)} className="nav-user-btn">{user.name || user.email || 'User'}</button>
             {open && (
-              <div style={{ position: 'absolute', right: 0, top: 'calc(100% + 8px)', background: '#fff', boxShadow: '0 6px 18px rgba(0,0,0,0.08)', borderRadius: 8, padding: 12, zIndex: 200 }}>
-                <div style={{ marginBottom: 8, fontWeight: 700 }}>{user.name || '—'}</div>
-                <div style={{ marginBottom: 8, color: '#555' }}>{user.email}</div>
-                <div style={{ display: 'flex', gap: 8 }}>
-                  <button onClick={handleLogout} style={{ background: '#ff6b6b', color: '#fff', border: 'none', padding: '8px 10px', borderRadius: 6 }}>Logout</button>
+              <div className="nav-dropdown-menu">
+                <div className="nav-dropdown-name">{user.name || '—'}</div>
+                <div className="nav-dropdown-email">{user.email}</div>
+                <div className="nav-dropdown-actions">
+                  <button onClick={handleLogout} className="nav-logout-btn">Logout</button>
                 </div>
               </div>
             )}
