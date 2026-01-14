@@ -1,5 +1,5 @@
 {
-  "homepage": "https://github.com/DaniilForum/ecommerce",
+  "homepage": "https://DaniilForum.github.io/ecommerce",
 
   "name": "frontend",
   "private": true,
@@ -10,7 +10,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && node -e \"require('fs').copyFileSync('dist/index.html', 'dist/404.html')\"",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
