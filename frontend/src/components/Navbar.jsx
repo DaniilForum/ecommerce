@@ -10,6 +10,8 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const token = localStorage.getItem('authToken');
   const dropdownRef = useRef();
+  const navRef = useRef();
+  const [menuOpen, setMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   // Fetch user profile if token exists on mount or token change
@@ -35,6 +37,7 @@ const Navbar = () => {
   useEffect(() => {
     const onDoc = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) setOpen(false);
+      if (navRef.current && !navRef.current.contains(e.target)) setMenuOpen(false);
     };
     document.addEventListener('click', onDoc);
     return () => document.removeEventListener('click', onDoc);
@@ -84,37 +87,42 @@ const Navbar = () => {
   };
 
   return (
-    <nav>
+    <nav ref={navRef}>
       <div className="nav-left">
-        <Link to="/" className="logo-link">
+        <Link to="/" className="logo-link" onClick={() => setMenuOpen(false)}>
           <img src={logo} alt="Store Logo" className="nav-logo" />
         </Link>
         {/* <Link to="/">Home</Link> */}
-        <Link to="/products">Products</Link>
-        <form onSubmit={handleSearch} className="nav-search-form">
+        <Link to="/products" onClick={() => setMenuOpen(false)}>Products</Link>
+        <form onSubmit={handleSearch} className="nav-search-form" style={{ display: 'flex', flex: 1, minWidth: '100px', maxWidth: '400px' }}>
           <input
             type="text"
             placeholder="Search products..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="nav-search-input"
+            style={{ width: '100%' }}
           />
         </form>
       </div>
 
-      <div>
+      <button className="nav-toggle" onClick={() => setMenuOpen(m => !m)} aria-label="Toggle navigation">
+        <span className={`hamburger ${menuOpen ? 'open' : ''}`}></span>
+      </button>
+
+      <div className={`nav-right ${menuOpen ? 'open' : ''}`}>
         {/* right-side controls: cart then user */}
-        {user && <Link to="/cart">Cart</Link>}
+        {user && <Link to="/cart" onClick={() => setMenuOpen(false)}>Cart</Link>}
 
         {/* only show Admin link for admin users */}
         {user && user.role === 'admin' && (
-          <Link to="/admin">Admin panel</Link>
+          <Link to="/admin" onClick={() => setMenuOpen(false)}>Admin panel</Link>
         )}
 
         {!user ? (
           <>
-            <Link to="/signup">Signup</Link>
-            <Link to="/login">Login</Link>
+            <Link to="/signup" onClick={() => setMenuOpen(false)}>Signup</Link>
+            <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
           </>
         ) : (
           <div ref={dropdownRef} className="nav-user-dropdown">
@@ -136,3 +144,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+// updated

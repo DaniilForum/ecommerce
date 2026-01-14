@@ -1,3 +1,12 @@
+/* Global reset to ensure full width on mobile */
+body {
+  margin: 0;
+  padding: 0;
+}
+* {
+  box-sizing: border-box;
+}
+
 nav {
   background: var(--color-surface);
   box-shadow: var(--shadow-md);
@@ -9,6 +18,8 @@ nav {
   position: sticky;
   top: 0;
   z-index: 100;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 nav > div {
@@ -128,4 +139,70 @@ nav .logo-link:hover {
 
 .nav-logout-btn:hover {
   background: #fa5252;
+}
+
+/* Responsive navigation */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  padding: 6px;
+  align-items: center;
+  justify-content: center;
+}
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-primary);
+  transition: transform 0.25s ease, opacity 0.2s ease;
+  border-radius: 2px;
+}
+.hamburger::before,
+.hamburger::after {
+  margin-top: 6px;
+}
+.hamburger.open {
+  background: transparent;
+}
+.hamburger.open::before {
+  transform: translateY(6px) rotate(45deg);
+}
+.hamburger.open::after {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .nav-logo { height: 48px; margin-top: 0; margin-bottom: 0; }
+  nav { padding: 8px 12px; }
+  .nav-left { gap: 10px; }
+  .nav-toggle { display: flex; }
+  .nav-right {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-surface);
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .nav-right.open { display: flex; }
+  .nav-right a, .nav-right button { width: 100%; text-align:left; }
+  .nav-user-dropdown { width: 100%; }
+  .nav-dropdown-menu { position: static; box-shadow: none; width: 100%; margin-top: 8px; }
 }
