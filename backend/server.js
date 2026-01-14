@@ -6,7 +6,11 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://daniilforum.github.io'], // Добавьте ваш домен GitHub Pages
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
