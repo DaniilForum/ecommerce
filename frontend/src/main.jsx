@@ -9,7 +9,7 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/ecommerce">
       <App />
     </BrowserRouter>
   </React.StrictMode>
