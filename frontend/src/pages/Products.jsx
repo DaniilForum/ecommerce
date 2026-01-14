@@ -59,6 +59,7 @@ const Products = () => {
         fetch();
     }, []);
 
+    // Category filter changer
     const toggleCategory = (id) => {
         setSelectedCats(prev => {
             const copy = { ...prev };
@@ -149,6 +150,7 @@ const Products = () => {
         if (sortBy === 'priceLow') return a.price - b.price;
         if (sortBy === 'priceHigh') return b.price - a.price;
         if (sortBy === 'rating') return (b.rating || 0) - (a.rating || 0);
+        if (sortBy === 'newest') return new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0);
         return 0;
     });
 
@@ -186,6 +188,7 @@ const Products = () => {
                                 <option value="priceLow">Price: Low to High</option>
                                 <option value="priceHigh">Price: High to Low</option>
                                 <option value="rating">Top Rated</option>
+                                <option value="newest">Newest Arrivals</option>
                             </select>
                         </div>
 
