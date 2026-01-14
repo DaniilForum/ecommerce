@@ -144,4 +144,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
-// updated
+// updated 2

@@ -204,5 +204,9 @@ nav .logo-link:hover {
   .nav-right.open { display: flex; }
   .nav-right a, .nav-right button { width: 100%; text-align:left; }
   .nav-user-dropdown { width: 100%; }
+  .nav-right .nav-user-btn {
+    width: auto;
+    margin-left: 0;
+  }
   .nav-dropdown-menu { position: static; box-shadow: none; width: 100%; margin-top: 8px; }
 }
