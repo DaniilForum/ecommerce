@@ -9,12 +9,14 @@ const UserManagement = () => {
 
   const fetch = async () => {
     try {
+      // Admin rights required
       const res = await getAllUsers();
       setUsers(res.data || []);
     } catch (err) { console.error(err); }
   };
 
-  const remove = async (id) => { if (!window.confirm('Delete user?')) return; try { await deleteUser(id); fetch(); } catch (err) { console.error(err); } };
+  /* Admin rights required */
+  const remove = async (id) => { if (!window.confirm('Delete user?')) return; try {  await deleteUser(id); fetch(); } catch (err) { console.error(err); } };
   const block = async (id) => { try { await blockUser(id); fetch(); } catch (err) { console.error(err); } };
   const unblock = async (id) => { try { await unblockUser(id); fetch(); } catch (err) { console.error(err); } };
 

@@ -39,8 +39,10 @@ const ProductManagement = () => {
       };
 
       if (editingId) {
+        // Admin rights required
         await updateProduct(editingId, payload);
       } else {
+        // Admin rights required
         await createProduct(payload);
       }
       setForm({ name: '', price: '', category: '', description: '', image: '', stock: '', rating: 0, topSelling: false, offer: '' });
@@ -71,6 +73,7 @@ const ProductManagement = () => {
   const remove = async (id) => {
     if (!window.confirm('Delete product?')) return;
     try {
+      // Admin rights required
       await deleteProduct(id);
       fetch();
     } catch (err) { console.error(err); }
@@ -107,6 +110,7 @@ const ProductManagement = () => {
             topSelling: newTopSelling,
             offer: newOffer
           };
+          // Admin rights required
           await updateProduct(p._id, payload);
         } catch (innerErr) {
           console.error(`Failed to update product ${p.name} (ID: ${p._id}):`, innerErr);

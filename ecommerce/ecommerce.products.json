@@ -1,0 +1,875 @@
+[{
+  "_id": {
+    "$oid": "69624d7a17b234741a939da6"
+  },
+  "name": "T-shirt",
+  "category": {
+    "$oid": "69624a5afdabad5528defb0a"
+  },
+  "price": 15,
+  "description": "Basic cotton T-shirt for everyday wear.",
+  "image": "https://www.tuffwraps.com/cdn/shop/files/tuff-basic-tee-s-heather-gray-tuffwraps-1154449053.png?v=1743852414&width=4500",
+  "stock": 12,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.411Z"
+  },
+  "offer": "Hot Deal",
+  "rating": 2.9,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939da7"
+  },
+  "name": "Sneakers",
+  "category": {
+    "$oid": "69624a5ffdabad5528defb0d"
+  },
+  "price": 65,
+  "description": "Comfortable sneakers suitable for daily use.",
+  "image": "https://www.campusshoes.com/cdn/shop/files/LEVEL_LEVEL_WHT-L.GRY_07_831c7a2c-ff1b-4011-9268-b11f984219c6_1024x.webp?v=1757580207",
+  "stock": 11,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.440Z"
+  },
+  "offer": "Hot Deal",
+  "rating": 2,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939da8"
+  },
+  "name": "Smartphone",
+  "category": {
+    "$oid": "69623e584353ae53a710aa8c"
+  },
+  "price": 499,
+  "description": "Modern smartphone with a high-resolution display.",
+  "image": "https://m.media-amazon.com/images/I/311NurSZPlL._AC_SR290,290_.jpg",
+  "stock": 15,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.468Z"
+  },
+  "offer": "Hot Deal",
+  "rating": 4.6,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939da9"
+  },
+  "name": "Microwave oven",
+  "category": {
+    "$oid": "69624a70fdabad5528defb16"
+  },
+  "price": 120,
+  "description": "Compact microwave oven for quick cooking.",
+  "image": "https://id.sharp/sites/default/files/uploads/2021-08/shutterstock_74089945.jpg",
+  "stock": 14,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.494Z"
+  },
+  "offer": "Sale",
+  "rating": 4.9,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939daa"
+  },
+  "name": "Milk",
+  "category": {
+    "$oid": "69624a6bfdabad5528defb13"
+  },
+  "price": 3,
+  "description": "Fresh pasteurized milk, 1 liter.",
+  "image": "https://www.oldenburger-dairy.com/media/00/6c/e1/1737642194/11067_1l_3_5_410x410_full_cream_milk.png",
+  "stock": 10,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.528Z"
+  },
+  "offer": "Best Value",
+  "rating": 4.6,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939dab"
+  },
+  "name": "Face cream",
+  "category": {
+    "$oid": "69624a63fdabad5528defb10"
+  },
+  "price": 25,
+  "description": "Moisturizing face cream for daily skin care.",
+  "image": "https://www.evolvebeauty.com/cdn/shop/files/Daily_Renew_Facial_Cream_60ml_PDP.jpg?v=1748441429",
+  "stock": 3,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.549Z"
+  },
+  "offer": "Best Value",
+  "rating": 3.3,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939dac"
+  },
+  "name": "Toilet water",
+  "category": {
+    "$oid": "69624aa2fdabad5528defb31"
+  },
+  "price": 45,
+  "description": "Light fragrance suitable for everyday use.",
+  "image": "https://image.flacon-magazine.com/i/d/dOwBMZfymH/590.png",
+  "stock": 8,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.576Z"
+  },
+  "offer": "Limited Time",
+  "rating": 5,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939dad"
+  },
+  "name": "Sofa",
+  "category": {
+    "$oid": "69624a30fdabad5528defb07"
+  },
+  "price": 650,
+  "description": "Comfortable sofa with soft cushions.",
+  "image": "https://medleyhome.com/cdn/shop/files/rio-sofa-larkspur-steel-1.jpg?v=1760033450&width=3000",
+  "stock": 17,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.596Z"
+  },
+  "offer": "Hot Deal",
+  "rating": 4.1,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939dae"
+  },
+  "name": "Teddy bear",
+  "category": {
+    "$oid": "69624a77fdabad5528defb19"
+  },
+  "price": 20,
+  "description": "Soft plush toy for children and gifts.",
+  "image": "https://soosweetshop.ca/upload/product/913-1681803506990-CROPPED.jpg",
+  "stock": 3,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.616Z"
+  },
+  "offer": "Sale",
+  "rating": 3,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939daf"
+  },
+  "name": "Ballpoint pen",
+  "category": {
+    "$oid": "69624a7efdabad5528defb1c"
+  },
+  "price": 2,
+  "description": "Smooth-writing pen for office and school.",
+  "image": "https://penstore.com/bilder/artiklar/zoom/109198_r_1.jpg?m=1752147372",
+  "stock": 15,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.637Z"
+  },
+  "offer": "Best Value",
+  "rating": 3.6,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939db0"
+  },
+  "name": "Dumbbells",
+  "category": {
+    "$oid": "69624a85fdabad5528defb1f"
+  },
+  "price": 40,
+  "description": "Dumbbells for home fitness training.",
+  "image": "https://cdn.webshopapp.com/shops/281654/files/392744433/dumbbells-vinyl.jpg",
+  "stock": 8,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.660Z"
+  },
+  "offer": "Limited Time",
+  "rating": 2,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939db1"
+  },
+  "name": "Novel",
+  "category": {
+    "$oid": "69624a8afdabad5528defb22"
+  },
+  "price": 12,
+  "description": "Paperback novel for leisure reading.",
+  "image": "https://media.istockphoto.com/id/173015527/photo/a-single-red-book-on-a-white-surface.jpg?s=612x612&w=0&k=20&c=AeKmdZvg2_bRY2Yct7odWhZXav8CgDtLMc_5_pjSItY=",
+  "stock": 11,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.682Z"
+  },
+  "offer": "Hot Deal",
+  "rating": 3.1,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939db2"
+  },
+  "name": "Cat food",
+  "category": {
+    "$oid": "69624a8ffdabad5528defb25"
+  },
+  "price": 18,
+  "description": "Nutritious dry food for adult cats.",
+  "image": "https://www.whiskas.com.ph/cdn-cgi/image/width=600,height=600,f=auto,quality=90/sites/g/files/fnmzdf8166/files/2025-05/whiskas-3d-1-2kg-fop-adult-tuna-2_1713962971851_1720596791287.png",
+  "stock": 2,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.702Z"
+  },
+  "offer": "Limited Time",
+  "rating": 3.4,
+  "topSelling": true
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939db3"
+  },
+  "name": "Dash cam",
+  "category": {
+    "$oid": "69624a93fdabad5528defb28"
+  },
+  "price": 90,
+  "description": "Dashboard camera for recording road footage.",
+  "image": "https://res.garmin.com/transform/image/upload/b_rgb:FFFFFF,c_pad,dpr_2.0,f_auto,h_400,q_auto,w_400/c_pad,h_400,w_400/v1/Product_Images/en/products/010-02860-10/v/cf-xl?pgw=1",
+  "stock": 18,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.723Z"
+  },
+  "offer": "Sale",
+  "rating": 2.7,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939db4"
+  },
+  "name": "Watering can",
+  "category": {
+    "$oid": "69624a98fdabad5528defb2b"
+  },
+  "price": 15,
+  "description": "Plastic watering can for garden plants.",
+  "image": "https://www.longacres.co.uk/Images/Product/Default/xlarge/stewarts-garden-2-litre-watering-can-green-238999.jpg",
+  "stock": 17,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.746Z"
+  },
+  "offer": "Sale",
+  "rating": 4.7,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939db5"
+  },
+  "name": "Frying pan",
+  "category": {
+    "$oid": "69624a9dfdabad5528defb2e"
+  },
+  "price": 35,
+  "description": "Non-stick frying pan for everyday cooking.",
+  "image": "https://cdn.procook.co.uk/e990d458-63ba-4472-bec6-b31400a01c88/Product-image-square/9356_C1.jpg?dpr=2&width=750&format=pjpg&auto=webp&crop=1:1",
+  "stock": 6,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.769Z"
+  },
+  "offer": "10% OFF",
+  "rating": 4.6,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "69624d7a17b234741a939db6"
+  },
+  "name": "Wristwatch",
+  "category": {
+    "$oid": "69624aa2fdabad5528defb31"
+  },
+  "price": 120,
+  "description": "Stylish wristwatch with durable strap.",
+  "image": "https://blog.ubiquity.acm.org/wp-content/uploads/2019/07/wristwatch_gold_luxury-672x372.jpg",
+  "stock": 20,
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.784Z"
+  },
+  "offer": "10% OFF",
+  "rating": 3.1,
+  "topSelling": true
+},
+{
+  "_id": {
+    "$oid": "696346e4c34f67c10d7a27f0"
+  },
+  "name": "iPhone 17",
+  "description": "Meet the new iPhone 17. Designed with contoured edges, thinner borders, and durable materials like Ceramic Shield 2 on the front, it looks — and stays — beautiful. You can see and do more of everything you love on a 6.3-inch Super Retina XDR display.5 And enjoy smoother scrolling and more immersive gaming with ProMotion, with an adaptive refresh rate up to 120Hz. Take it for a spin.",
+  "price": 1140,
+  "category": {
+    "$oid": "69623e584353ae53a710aa8c"
+  },
+  "image": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-17-pro-finish-select-202509-6-3inch-cosmicorange?wid=5120&hei=2880&fmt=webp&qlt=90&.v=NUNzdzNKR0FJbmhKWm5YamRHb05tUzkyK3hWak1ybHhtWDkwUXVINFc0RUlmWnJkM2NiV2hVVVF2ZE1VdGpQZWhsQTdPYWVGbmdIenAvNE9qYmZVYVFDb1F2RTNvUEVHRkpGaGtOSVFHak5NTEhXRE11VU1QNVo2eDJsWlpuWHRlLys5ZkozSXJXZWZXNk8rZDF5S0V3&traceId=1",
+  "stock": 18,
+  "createdAt": {
+    "$date": "2026-01-11T06:44:52.053Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.798Z"
+  },
+  "__v": 0,
+  "offer": "Limited Time",
+  "rating": 3.5,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "693bbae3210b82a18e077d56"
+  },
+  "name": "Dell 14 Plus 2-in-1 Laptop",
+  "description": "Intel® Core™ Ultra 7 256V, 8 cores Windows 11 Pro Intel® Arc™ Graphics 16GB LPDDR5X 1TB SSD 14.0-inch touch display Full HD+ (1920X1200) Enjoy AI experiences and incredible battery life, with versatile working modes for smooth multitasking on the go.",
+  "price": 175,
+  "category": {
+    "$oid": "69624a7efdabad5528defb1c"
+  },
+  "stock": 3,
+  "createdAt": {
+    "$date": "2025-12-12T06:49:07.134Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.814Z"
+  },
+  "__v": 0,
+  "image": "https://m.media-amazon.com/images/I/61pKdnq7IsL._AC_UF1000,1000_QL80_.jpg",
+  "offer": "Sale",
+  "rating": 2,
+  "topSelling": true
+},
+{
+  "_id": {
+    "$oid": "693bbb3d210b82a18e077d66"
+  },
+  "name": "Dell 14 Plus Laptop",
+  "description": "Intel® Core™ Ultra 9 288V, 8 cores Windows 11 Pro Intel® Arc™ Graphics 32GB LPDDR5X 1TB SSD 14.0 inch display 2.5K (2560X1600) The Dell 14 Plus portable, lightweight laptop with AI and Intel Arc Graphics is ideal for creatives and small businesses.",
+  "price": 150,
+  "category": {
+    "$oid": "69624a63fdabad5528defb10"
+  },
+  "stock": 12,
+  "createdAt": {
+    "$date": "2025-12-12T06:50:37.150Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.828Z"
+  },
+  "offer": "Hot Deal",
+  "rating": 1.5,
+  "topSelling": false,
+  "__v": 0,
+  "image": "https://laptopmedia.com/wp-content/uploads/2024/05/7-2.jpg"
+},
+{
+  "_id": {
+    "$oid": "693bbb6a210b82a18e077d6a"
+  },
+  "name": "Dell 14 Laptop",
+  "description": "The Dell 14 (DC14255) is a great value entry-level laptop. It's recommended for those looking for a reasonably priced laptop with decent performance.  If you are going to buy this product, I personally recommend a model other than the Ryzen AI 5 330. ",
+  "price": 140,
+  "category": {
+    "$oid": "69624a6bfdabad5528defb13"
+  },
+  "stock": 0,
+  "createdAt": {
+    "$date": "2025-12-12T06:51:22.203Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.844Z"
+  },
+  "offer": "Sale",
+  "rating": 3.7,
+  "topSelling": true,
+  "__v": 0,
+  "image": "https://thehikaku.net/pc/dell/image/25Dell14-DC14255/top31400.jpg"
+},
+{
+  "_id": {
+    "$oid": "6965ca75065a8cff16d8be53"
+  },
+  "name": "EVs EQE Sedan",
+  "description": "",
+  "price": 2500,
+  "category": {
+    "$oid": "69623fea4353ae53a710aab2"
+  },
+  "image": "https://www.mercedes-benz.ca/content/dam/mb-nafta/ca/myco/my23/eqe-sedan/all-vehicles/MBCAN-2023-EQE350-4M-SEDAN-AVP-DR.png",
+  "stock": 2,
+  "createdAt": {
+    "$date": "2026-01-13T04:30:45.102Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.859Z"
+  },
+  "__v": 0,
+  "offer": "Limited Time",
+  "rating": 2.2,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965cac4065a8cff16d8be64"
+  },
+  "name": "EQE 350 4MATIC SUV",
+  "description": "",
+  "price": 2600,
+  "category": {
+    "$oid": "69623fea4353ae53a710aab2"
+  },
+  "image": "https://www.mercedes-benz.ca/content/dam/mb-nafta/ca/myco/my23/eqe-suv/all-vehicles/MBCAN-2023-EQE350-SUV-AVP-DR.png",
+  "stock": 19,
+  "createdAt": {
+    "$date": "2026-01-13T04:32:04.371Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.874Z"
+  },
+  "__v": 0,
+  "offer": "Sale",
+  "rating": 4.3,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965cb3a065a8cff16d8be69"
+  },
+  "name": "Slant Panel Oversized Blouson",
+  "description": "",
+  "price": 200,
+  "category": {
+    "$oid": "69624a5afdabad5528defb0a"
+  },
+  "image": "https://itemimg-spc.adss-sys.com/itemimg/SPC01/A0SPC000PV5U/02_CN0-240.jpg",
+  "stock": 2,
+  "createdAt": {
+    "$date": "2026-01-13T04:34:02.197Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.887Z"
+  },
+  "__v": 0,
+  "offer": "Sale",
+  "rating": 1.9,
+  "topSelling": true
+},
+{
+  "_id": {
+    "$oid": "6965cb6a065a8cff16d8be6e"
+  },
+  "name": " Half-rack Rabbit Fur Blouson",
+  "description": "",
+  "price": 270,
+  "category": {
+    "$oid": "69624a5afdabad5528defb0a"
+  },
+  "image": "https://itemimg-spc.adss-sys.com/itemimg/SPC01/A0SPC000PSTG/01_001-750.jpg",
+  "stock": 1,
+  "createdAt": {
+    "$date": "2026-01-13T04:34:50.001Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.901Z"
+  },
+  "__v": 0,
+  "offer": "Hot Deal",
+  "rating": 2.4,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965cbe2065a8cff16d8be7f"
+  },
+  "name": "Air Jordan 4 Retro \"Flight Club\"",
+  "description": "",
+  "price": 240,
+  "category": {
+    "$oid": "69624a5ffdabad5528defb0d"
+  },
+  "image": "https://static.nike.com/a/images/t_web_pw_592_v2/f_auto/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b5bf7176-9aaa-4e63-8bcd-50f809fc1dab/AIR+JORDAN+4+RETRO+OG+FC.png",
+  "stock": 2,
+  "createdAt": {
+    "$date": "2026-01-13T04:36:50.915Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.913Z"
+  },
+  "__v": 0,
+  "offer": "Best Value",
+  "rating": 2.6,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965cc15065a8cff16d8be84"
+  },
+  "name": "Nike Shox TL",
+  "description": "",
+  "price": 160,
+  "category": {
+    "$oid": "69624a5ffdabad5528defb0d"
+  },
+  "image": "https://static.nike.com/a/images/t_web_pw_592_v2/f_auto/7d6c24df-bbd1-4450-8544-13a714729681/NIKE+SHOX+TL.png",
+  "stock": 20,
+  "createdAt": {
+    "$date": "2026-01-13T04:37:41.922Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.929Z"
+  },
+  "__v": 0,
+  "offer": "Limited Time",
+  "rating": 3.3,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965cc77065a8cff16d8be89"
+  },
+  "name": "Cream in Day II Kit / SPF30 / PA+++ / 40g, 30mL, 4g",
+  "description": "",
+  "price": 100,
+  "category": {
+    "$oid": "69624a63fdabad5528defb10"
+  },
+  "image": "https://www.cosme.com/upload/save_image/product/00/39/30/46/393046_1_360.jpg?01091654",
+  "stock": 11,
+  "createdAt": {
+    "$date": "2026-01-13T04:39:19.967Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.947Z"
+  },
+  "__v": 0,
+  "offer": "Limited Time",
+  "rating": 2.1,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965cca5065a8cff16d8be8e"
+  },
+  "name": "Skin Clear Cleanse Oil Aroma Type / Eco Pack / 350ml",
+  "description": "",
+  "price": 80,
+  "category": {
+    "$oid": "69624a63fdabad5528defb10"
+  },
+  "image": "https://www.cosme.com/upload/save_image/product/00/31/26/39/312639_1_360.jpg?10300249",
+  "stock": 5,
+  "createdAt": {
+    "$date": "2026-01-13T04:40:05.130Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.966Z"
+  },
+  "__v": 0,
+  "offer": "Sale",
+  "rating": 3.5,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965cd1c065a8cff16d8be93"
+  },
+  "name": "Knorr Cup Soup Corn Cream 30-Pack",
+  "description": "",
+  "price": 30,
+  "category": {
+    "$oid": "69624a6bfdabad5528defb13"
+  },
+  "image": "https://m.media-amazon.com/images/I/81KU9l2kiFL._AC_SX679_PIbundle-30,TopRight,0,0_SH20_.jpg",
+  "stock": 9,
+  "createdAt": {
+    "$date": "2026-01-13T04:42:04.017Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:28.998Z"
+  },
+  "__v": 0,
+  "offer": "Hot Deal",
+  "rating": 3.3,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965cd44065a8cff16d8be98"
+  },
+  "name": "Nestle Kit Cut Heart Full Bear Party Boxes 35 Count",
+  "description": "",
+  "price": 50,
+  "category": {
+    "$oid": "69624a6bfdabad5528defb13"
+  },
+  "image": "https://m.media-amazon.com/images/I/71D+GWtkdPL._AC_SX679_.jpg",
+  "stock": 17,
+  "createdAt": {
+    "$date": "2026-01-13T04:42:44.531Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:29.022Z"
+  },
+  "__v": 0,
+  "offer": "Hot Deal",
+  "rating": 1.2,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965cd84065a8cff16d8bea5"
+  },
+  "name": "LunarLight Kitchen Baker Rack",
+  "description": "",
+  "price": 25,
+  "category": {
+    "$oid": "69624a70fdabad5528defb16"
+  },
+  "image": "https://m.media-amazon.com/images/I/81cMxcnIHUL._AC_UL480_FMwebp_QL65_.jpg",
+  "stock": 1,
+  "createdAt": {
+    "$date": "2026-01-13T04:43:48.575Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:29.045Z"
+  },
+  "__v": 0,
+  "offer": "Best Value",
+  "rating": 4.7,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965cdaa065a8cff16d8beaa"
+  },
+  "name": "Chair Mat, Floor Mat, Transparent",
+  "description": "",
+  "price": 35,
+  "category": {
+    "$oid": "69624a70fdabad5528defb16"
+  },
+  "image": "https://m.media-amazon.com/images/I/81GzHzANGkL._AC_UL480_FMwebp_QL65_.jpg",
+  "stock": 11,
+  "createdAt": {
+    "$date": "2026-01-13T04:44:26.147Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:29.063Z"
+  },
+  "__v": 0,
+  "offer": "Best Value",
+  "rating": 4.2,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965ce30065a8cff16d8beaf"
+  },
+  "name": "Jecimco Car Toy, Children, Mini Car Set, Educational Toy, Work Vehicle",
+  "description": "",
+  "price": 10,
+  "category": {
+    "$oid": "69624a77fdabad5528defb19"
+  },
+  "image": "https://m.media-amazon.com/images/I/71N2moH6-EL._AC_UL480_FMwebp_QL65_.jpg",
+  "stock": 11,
+  "createdAt": {
+    "$date": "2026-01-13T04:46:40.663Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:29.079Z"
+  },
+  "__v": 0,
+  "offer": "Sale",
+  "rating": 2,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965ce89065a8cff16d8beb4"
+  },
+  "name": "MIXUS Plush Toy, Large Bear",
+  "description": "",
+  "price": 15,
+  "category": {
+    "$oid": "69624a77fdabad5528defb19"
+  },
+  "image": "https://m.media-amazon.com/images/I/61ZDTs5uRFS._AC_UL480_FMwebp_QL65_.jpg",
+  "stock": 10,
+  "createdAt": {
+    "$date": "2026-01-13T04:48:09.667Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:29.102Z"
+  },
+  "__v": 0,
+  "offer": "Sale",
+  "rating": 1,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965cefc065a8cff16d8beb9"
+  },
+  "name": "Soccer Ball, No. 5 Ball, Official Soccer Ball",
+  "description": "",
+  "price": 10,
+  "category": {
+    "$oid": "69624a85fdabad5528defb1f"
+  },
+  "image": "https://m.media-amazon.com/images/I/61XT7vw2rCL._AC_UL480_FMwebp_QL65_.jpg",
+  "stock": 17,
+  "createdAt": {
+    "$date": "2026-01-13T04:50:04.156Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:29.122Z"
+  },
+  "__v": 0,
+  "offer": "Hot Deal",
+  "rating": 1.7,
+  "topSelling": true
+},
+{
+  "_id": {
+    "$oid": "6965cf63065a8cff16d8bebe"
+  },
+  "name": "Zett Baseball Training Bat, 23.6 inches",
+  "description": "",
+  "price": 20,
+  "category": {
+    "$oid": "69624a85fdabad5528defb1f"
+  },
+  "image": "https://m.media-amazon.com/images/I/519cdPA+SlL._AC_UL480_FMwebp_QL65_.jpg",
+  "stock": 7,
+  "createdAt": {
+    "$date": "2026-01-13T04:51:47.575Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:29.140Z"
+  },
+  "__v": 0,
+  "offer": "Best Value",
+  "rating": 4.4,
+  "topSelling": true
+},
+{
+  "_id": {
+    "$oid": "6965cfd2065a8cff16d8becf"
+  },
+  "name": "Purina One Cat Food for Senior Cats",
+  "description": "",
+  "price": 7,
+  "category": {
+    "$oid": "69624a8ffdabad5528defb25"
+  },
+  "image": "https://m.media-amazon.com/images/I/71aal3bxQBL._AC_UL480_FMwebp_QL65_.jpg",
+  "stock": 19,
+  "createdAt": {
+    "$date": "2026-01-13T04:53:38.313Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:29.162Z"
+  },
+  "__v": 0,
+  "offer": "10% OFF",
+  "rating": 4,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965d012065a8cff16d8bed4"
+  },
+  "name": "Pyramid Power: Ancient Energies and Modern Revelations ",
+  "description": "",
+  "price": 10,
+  "category": {
+    "$oid": "69624a8afdabad5528defb22"
+  },
+  "image": "https://m.media-amazon.com/images/I/813HOgPgfEL._AC_UL480_FMwebp_QL65_.jpg",
+  "stock": 4,
+  "createdAt": {
+    "$date": "2026-01-13T04:54:42.805Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:29.185Z"
+  },
+  "__v": 0,
+  "offer": "Hot Deal",
+  "rating": 2.6,
+  "topSelling": false
+},
+{
+  "_id": {
+    "$oid": "6965d047065a8cff16d8bed9"
+  },
+  "name": "【2025 New Arrival・15W Fast Charging】Smartphone Holder Car Wireless Charging Magnetic ",
+  "description": "",
+  "price": 25,
+  "category": {
+    "$oid": "69624a93fdabad5528defb28"
+  },
+  "image": "https://m.media-amazon.com/images/I/71IGdiyLH3L._AC_UL480_FMwebp_QL65_.jpg",
+  "stock": 19,
+  "createdAt": {
+    "$date": "2026-01-13T04:55:35.236Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:29.203Z"
+  },
+  "__v": 0,
+  "offer": "10% OFF",
+  "rating": 2.9,
+  "topSelling": true
+},
+{
+  "_id": {
+    "$oid": "6965d08f065a8cff16d8bede"
+  },
+  "name": "Carote Pot and Pan Set, Induction/Gas, 14 Pieces, No Harmful Substances such as PFOA, Professional, 5-Layer Construction, Titanium Coat, Lightweight, Removable Handle, Non-Stick, Easy to Clean, Black",
+  "description": "",
+  "price": 31,
+  "category": {
+    "$oid": "69624a9dfdabad5528defb2e"
+  },
+  "image": "https://m.media-amazon.com/images/I/71Plv7ZN3RL._AC_SX679_.jpg",
+  "stock": 1,
+  "createdAt": {
+    "$date": "2026-01-13T04:56:47.312Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-13T06:09:29.223Z"
+  },
+  "__v": 0,
+  "offer": "Best Value",
+  "rating": 4,
+  "topSelling": false
+}]

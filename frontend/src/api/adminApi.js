@@ -29,7 +29,7 @@ export const deleteCategory = (id) =>
 export const getCategories = () =>
   api.get('/categories');
 
-// Users (Admin)
+// Users
 export const getAllUsers = () =>
   api.get('/admin/users');
 

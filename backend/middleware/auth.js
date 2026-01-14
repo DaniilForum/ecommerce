@@ -16,6 +16,7 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
+// checking admin rights
 const adminMiddleware = (req, res, next) => {
   if (req.user && req.user.role === 'admin') {
     next();

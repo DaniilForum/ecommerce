@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
 import AdminPage from './pages/AdminPage';
+import AdminRoute from './components/AdminRoute';
 import NotFound from './pages/NotFound';
 import Navbar from './components/Navbar';
 import Signup from './pages/Signup';
@@ -18,7 +19,7 @@ const App = () => {
       <main style={{ padding: 20, flex: 1 }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/admin/*" element={<AdminPage />} />
+          <Route path="/admin/*" element={<AdminRoute><AdminPage /></AdminRoute>} />
           <Route path="/products" element={<Products />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/signup" element={<Signup />} />

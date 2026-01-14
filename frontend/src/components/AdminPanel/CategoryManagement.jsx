@@ -20,8 +20,8 @@ const CategoryManagement = () => {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      if (editingId) await updateCategory(editingId, form);
-      else await createCategory(form);
+      if (editingId) await updateCategory(editingId, form); // Admin rights required
+      else await createCategory(form); // Admin rights required
       setForm({ name: '', description: '' });
       setEditingId(null);
       setShowModal(false);
@@ -35,7 +35,7 @@ const CategoryManagement = () => {
     setShowModal(true);
   };
 
-  const remove = async (id) => { if (!window.confirm('Delete category?')) return; try { await deleteCategory(id); fetch(); } catch (err) { console.error(err); } };
+  const remove = async (id) => { if (!window.confirm('Delete category?')) return; try { /* Admin rights required */ await deleteCategory(id); fetch(); } catch (err) { console.error(err); } };
 
   return (
     <div className="cm-wrapper">

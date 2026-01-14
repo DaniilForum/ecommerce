@@ -1,0 +1,238 @@
+[{
+  "_id": {
+    "$oid": "69623e584353ae53a710aa8c"
+  },
+  "name": "Electronics",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T11:56:08.409Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T11:56:08.409Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69623fea4353ae53a710aab2"
+  },
+  "name": "Vehicles",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:02:50.811Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:02:50.811Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624a30fdabad5528defb07"
+  },
+  "name": "Furniture",
+  "description": "Chairs, tables, etc.",
+  "createdAt": {
+    "$date": "2026-01-10T12:46:40.238Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:46:40.238Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624a5afdabad5528defb0a"
+  },
+  "name": "Clothing",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:47:22.241Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:47:22.241Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624a5ffdabad5528defb0d"
+  },
+  "name": "Footwear",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:47:27.094Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:47:27.094Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624a63fdabad5528defb10"
+  },
+  "name": "Cosmetics",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:47:31.156Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:47:31.156Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624a6bfdabad5528defb13"
+  },
+  "name": "Groceries / Food products",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:47:39.008Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:47:39.008Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624a70fdabad5528defb16"
+  },
+  "name": "Home appliances",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:47:44.290Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:47:44.290Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624a77fdabad5528defb19"
+  },
+  "name": "Toys",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:47:51.303Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:47:51.303Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624a7efdabad5528defb1c"
+  },
+  "name": "Stationery",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:47:58.643Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:47:58.643Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624a85fdabad5528defb1f"
+  },
+  "name": "Sports equipment",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:48:05.711Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:48:05.711Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624a8afdabad5528defb22"
+  },
+  "name": "Books",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:48:10.220Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:48:10.220Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624a8ffdabad5528defb25"
+  },
+  "name": "Pet supplies",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:48:15.205Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:48:15.205Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624a93fdabad5528defb28"
+  },
+  "name": "Car accessories",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:48:19.456Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:48:19.456Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624a98fdabad5528defb2b"
+  },
+  "name": "Garden supplies",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:48:24.711Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:48:24.711Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624a9dfdabad5528defb2e"
+  },
+  "name": "Kitchenware",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:48:29.002Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:48:29.002Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69624aa2fdabad5528defb31"
+  },
+  "name": "Accessories",
+  "description": "",
+  "createdAt": {
+    "$date": "2026-01-10T12:48:34.396Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-10T12:48:34.396Z"
+  },
+  "__v": 0
+}]
