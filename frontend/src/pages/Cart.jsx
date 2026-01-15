@@ -42,6 +42,10 @@ const Cart = () => {
 
     const handleIncrease = async (productId) => {
         try {
+        const item = (cart.items || []).find(it => (it.productId || {})._id === productId);
+        const currentQty = item?.quantity || 0;
+        const stock = (item?.productId?.stock) ?? Infinity;
+        if (currentQty + 1 > stock) { window.alert('Cannot increase: exceeds available stock'); return; }
         await addToCart(productId, 1);
         fetch();
         } catch (err) { console.error(err); alert('Error updating quantity'); }
@@ -82,6 +86,10 @@ const Cart = () => {
         if (selected.size === 0) return;
         try {
             for (const id of selected) {
+                const item = (cart.items || []).find(it => (it.productId || {})._id === id);
+                const currentQty = item?.quantity || 0;
+                const stock = (item?.productId?.stock) ?? Infinity;
+                if (delta > 0 && currentQty + delta > stock) { window.alert(`Cannot increase ${item?.productId?.name || id}: exceeds stock`); continue; }
                 await addToCart(id, delta);
             }
             fetch();

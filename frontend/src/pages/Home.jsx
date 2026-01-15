@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getProducts } from '../api/productApi';
-import { addToCart } from '../api/cartApi';
+import { addToCart, getCart } from '../api/cartApi';
 import { getProfile } from '../api/authApi';
 import ProductModal from '../components/ProductModal';
+import ProductCard from '../components/ProductCard';
 import './Home.css';
 import './Products.css';
 import logo from '../assets/eshop_logo.png';
@@ -13,6 +14,7 @@ const Home = () => {
   const [newArrivals, setNewArrivals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [quantities, setQuantities] = useState({});
+  const [cartItems, setCartItems] = useState({});
   const [modalProduct, setModalProduct] = useState(null);
   const [addedFeedback, setAddedFeedback] = useState({});
   const [isBlocked, setIsBlocked] = useState(false);
@@ -32,58 +34,34 @@ const Home = () => {
     }
   }, [popular]);
 
+  // Handles the scrolling logic for the popular products carousel
   const scrollPopular = (direction) => {
     if (popularRef.current) {
       const { current } = popularRef;
-      const oneSetWidth = current.scrollWidth / 3;
-      const firstItem = current.querySelector('.carousel-item');
-      if (!firstItem) return;
-      
-      // Scroll by one item width + gap (20px)
-      const scrollAmount = firstItem.offsetWidth + 20;
-
+      const scrollAmount = 300;
       if (direction === 'left') {
-        // If near start of middle set, jump to start of last set before scrolling
-        if (current.scrollLeft <= oneSetWidth + 10) {
-          current.scrollLeft += oneSetWidth;
-        }
         current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
       } else {
-        // If near end of middle set, jump to end of first set before scrolling
-        if (current.scrollLeft >= 2 * oneSetWidth - 10) {
-          current.scrollLeft -= oneSetWidth;
-        }
         current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
       }
     }
   };
 
-  // Auto-scroll carousel every 5 seconds
-  useEffect(() => {
-    if (popular.length === 0) return;
-    const interval = setInterval(() => {
-      scrollPopular('right');
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [popular]);
-
-  const updateQuantity = (productId, delta) => {
+  const updateQuantity = (productId, delta, max = Infinity) => {
     setQuantities(prev => {
-      const current = prev[productId] || 1;
-      const next = Math.max(1, current + delta);
+      const minQty = max > 0 ? 1 : 0;
+      const current = prev[productId] ?? minQty;
+      const next = Math.max(minQty, Math.min(max, current + delta));
       return { ...prev, [productId]: next };
     });
   };
 
-  // Handle adding product to cart: checks auth and shows feedback
   const handleAddToCart = async (product, qtyParam) => {
     const token = localStorage.getItem('authToken');
     if (!token) {
       navigate('/login');
       return;
     }
-
-    // check if blocked
     try {
       const profile = await getProfile();
       if (profile?.data?.isBlocked) {
@@ -92,14 +70,64 @@ const Home = () => {
         return;
       }
     } catch (err) {
-      console.warn('Failed to check profile', err);
+      console.warn('Failed checking profile', err);
     }
 
-    const qty = typeof qtyParam === 'number' ? qtyParam : (quantities[product._id] || 1);
+    let currentCartMap = { ...cartItems };
+    try {
+      const fresh = await getCart();
+      if (fresh?.data?.items) {
+        const map = {};
+        fresh.data.items.forEach(it => {
+          const id = it.productId?._id ?? it.productId;
+          map[id] = it.quantity;
+        });
+        currentCartMap = map;
+        setCartItems(map);
+      }
+    } catch (err) {
+      // ignore fetch error and fall back to local state
+      console.warn('Failed to refresh cart before validation', err);
+    }
+
+    const inCart = currentCartMap[product._id] || 0;
+    const maxAvailable = Math.max(0, (product.stock || 0) - inCart);
+    const qty = typeof qtyParam === 'number' ? qtyParam : (quantities[product._id] ?? (maxAvailable > 0 ? 1 : 0));
+
+    if (qty <= 0) {
+      window.alert('No more items available to add.');
+      return;
+    }
+
+    if (qty > maxAvailable) {
+      window.alert(`Cannot add ${qty} items. Only ${maxAvailable} available (considering items already in cart).`);
+      return;
+    }
     try {
       await addToCart(product._id, qty);
       setAddedFeedback(prev => ({ ...prev, [product._id]: true }));
       // Remove feedback message after 1 second
+      // refresh cart counts after successful add
+      try {
+        const cart = await getCart();
+        if (cart?.data?.items) {
+          const map = {};
+          cart.data.items.forEach(it => {
+            const id = it.productId?._id ?? it.productId;
+            map[id] = it.quantity;
+          });
+          setCartItems(map);
+          // update display quantity for this product based on new availability
+          const newInCart = map[product._id] || 0;
+          const newMax = Math.max(0, (product.stock || 0) - newInCart);
+          setQuantities(prev => ({
+            ...prev,
+            [product._id]: newMax > 0 ? Math.min(prev[product._id] ?? 1, newMax) : 0
+          }));
+        }
+      } catch (err) {
+        console.warn('Failed to refresh cart', err);
+      }
       setTimeout(() => {
         setAddedFeedback(prev => {
           const next = { ...prev };
@@ -121,11 +149,13 @@ const Home = () => {
         const products = await getProducts();
         if (products && Array.isArray(products)) {
           // 1. Top Selling (Carousel)
-          const topSelling = products.filter(p => p.topSelling);
+          // 1. Top Selling (Carousel) — exclude out-of-stock
+          const topSelling = products.filter(p => p.topSelling && ((p.stock ?? 0) > 0));
           setPopular(topSelling);
 
-          // 2. New Arrivals (Top 5 by updatedAt)
-          const sortedByDate = [...products].sort((a, b) => {
+          // 2. New Arrivals (Top 5 by updatedAt) — exclude out-of-stock
+          const available = products.filter(p => (p.stock ?? 0) > 0);
+          const sortedByDate = [...available].sort((a, b) => {
             return new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0);
           });
           setNewArrivals(sortedByDate.slice(0, 5));
@@ -137,57 +167,28 @@ const Home = () => {
       }
     };
     fetchHomeData();
+    // also fetch cart contents (products and amount in cart)
+    const fetchCart = async () => {
+      try {
+        const cart = await getCart();
+        if (cart?.data?.items) {
+          const map = {};
+          cart.data.items.forEach(it => {
+            const id = it.productId?._id ?? it.productId;
+            map[id] = it.quantity;
+          });
+          setCartItems(map);
+        }
+      } catch (err) {
+        console.warn('Failed to fetch cart', err);
+      }
+    };
+    fetchCart();
   }, []);
 
-  const ProductCard = ({ product: p }) => (
-    <article className="product-card">
-      <div className="product-media">
-        {p.image ? (
-          <img src={p.image} alt={p.name} className="product-image" />
-        ) : (
-          <div className="product-placeholder" />
-        )}
-        {p.stock === 0 && <span className="badge out">Out</span>}
-        {p.stock > 0 && p.stock <= 5 && <span className="badge low">Low</span>}
-        {p.topSelling && <span className="badge top">Top</span>}
-        {p.offer && <span className="badge offer">{p.offer}</span>}
-      </div>
+  
 
-      <div className="product-meta">
-        <div className="product-body">
-          <h3 className="product-title">{p.name}</h3>
-          <div className="rating">
-            <span className="stars">{[0,1,2,3,4].map(i => (
-                <span key={i} className={i < Math.round(p.rating || 0) ? 'star filled' : 'star'}>★</span>
-            ))}</span>
-            <span className="rating-num">{(p.rating || 0).toFixed(1)}</span>
-          </div>
-          <p className="product-desc">{p.description || '—'}</p>
-        </div>
-
-        <div className="product-footer" style={{ flexDirection: 'column', alignItems: 'stretch' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div className="price">${p.price}</div>
-            <button onClick={() => setModalProduct(p)}>Details</button>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div className="prod-qty-selector">
-              <button className="prod-qty-btn" onClick={() => updateQuantity(p._id, -1)}>&lt;</button>
-              <span className="prod-qty-val">{quantities[p._id] || 1}</span>
-              <button className="prod-qty-btn" onClick={() => updateQuantity(p._id, 1)}>&gt;</button>
-            </div>
-            <div style={{ display: 'flex', gap: 8, position: 'relative' }}>
-              {addedFeedback[p._id] && (
-                <span className="product-added-msg">Added!</span>
-              )}
-              <button onClick={() => handleAddToCart(p)} disabled={isBlocked} title={isBlocked ? 'Your account is blocked' : ''}>Add</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </article>
-  );
-
+  // Checks if the user is blocked on component mount
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem('authToken');
@@ -227,7 +228,16 @@ const Home = () => {
             <div className="carousel-track" ref={popularRef}>
               {displayPopular.map((p, index) => (
                 <div key={`${p._id}-${index}`} className="carousel-item">
-                  <ProductCard product={p} />
+                  <ProductCard
+                    product={p}
+                    quantities={quantities}
+                    updateQuantity={updateQuantity}
+                    cartItems={cartItems}
+                    addedFeedback={addedFeedback}
+                    isBlocked={isBlocked}
+                    onAdd={handleAddToCart}
+                    onDetails={(prod) => setModalProduct(prod)}
+                  />
                 </div>
               ))}
             </div>
@@ -241,7 +251,19 @@ const Home = () => {
         <h2>New Arrivals</h2>
         {loading ? <div className="home-loading">Loading...</div> : (
           <div className="home-products-grid new-arrivals">
-            {newArrivals.map(p => <ProductCard key={p._id} product={p} />)}
+            {newArrivals.map(p => (
+              <ProductCard
+                key={p._id}
+                product={p}
+                quantities={quantities}
+                updateQuantity={updateQuantity}
+                cartItems={cartItems}
+                addedFeedback={addedFeedback}
+                isBlocked={isBlocked}
+                onAdd={handleAddToCart}
+                onDetails={(prod) => setModalProduct(prod)}
+              />
+            ))}
           </div>
         )}
       </section>
@@ -266,15 +288,21 @@ const Home = () => {
       </section>
       </div>
 
-      {modalProduct && (
-        <ProductModal
-          product={modalProduct}
-          onClose={() => setModalProduct(null)}
-          onAdd={async (product, qty) => {
-            await handleAddToCart({ ...product, _id: product._id }, qty);
-          }}
-        />
-      )}
+      {modalProduct && (() => {
+        const inCart = cartItems[modalProduct._id] || 0;
+        const maxAvailable = Math.max(0, (modalProduct.stock || 0) - inCart);
+        return (
+          <ProductModal
+            product={modalProduct}
+            cartQty={inCart}
+            maxAvailable={maxAvailable}
+            onClose={() => setModalProduct(null)}
+            onAdd={async (product, qty) => {
+              await handleAddToCart({ ...product, _id: product._id }, qty);
+            }}
+          />
+        );
+      })()}
     </>
   );
 };

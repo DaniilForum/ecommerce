@@ -7,7 +7,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://daniilforum.github.io'], // Добавьте ваш домен GitHub Pages
+  origin: ['http://localhost:5173', 'https://daniilforum.github.io'],
   credentials: true
 }));
 

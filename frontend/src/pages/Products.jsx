@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getProducts } from '../api/productApi';
 import { getCategories } from '../api/adminApi';
-import { addToCart } from '../api/cartApi';
+import { addToCart, getCart } from '../api/cartApi';
 import { getProfile } from '../api/authApi';
 import ProductModal from '../components/ProductModal';
+import ProductCard from '../components/ProductCard';
 import './Products.css';
 
 const Products = () => {
@@ -12,6 +13,7 @@ const Products = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [quantities, setQuantities] = useState({});
+    const [cartItems, setCartItems] = useState({});
     const [categories, setCategories] = useState([]);
     const [selectedCats, setSelectedCats] = useState({});
     const [modalProduct, setModalProduct] = useState(null);
@@ -68,10 +70,11 @@ const Products = () => {
         });
     };
 
-    const updateQuantity = (productId, delta) => {
+    const updateQuantity = (productId, delta, max = Infinity) => {
         setQuantities(prev => {
-            const current = prev[productId] || 1;
-            const next = Math.max(1, current + delta);
+            const minQty = max > 0 ? 1 : 0;
+            const current = prev[productId] ?? minQty;
+            const next = Math.max(minQty, Math.min(max, current + delta));
             return { ...prev, [productId]: next };
         });
     };
@@ -96,10 +99,56 @@ const Products = () => {
             console.warn('Failed checking profile', err);
         }
 
-        const qty = typeof qtyParam === 'number' ? qtyParam : (quantities[product._id] || 1);
+        // refresh cart from server to avoid stale counts
+        let currentCartMap = { ...cartItems };
+        try {
+            const fresh = await getCart();
+            if (fresh?.data?.items) {
+                const map = {};
+                fresh.data.items.forEach(it => {
+                    const id = it.productId?._id ?? it.productId;
+                    map[id] = it.quantity;
+                });
+                currentCartMap = map;
+                setCartItems(map);
+            }
+        } catch (err) {
+            console.warn('Failed to refresh cart before validation', err);
+        }
+
+        const inCart = currentCartMap[product._id] || 0;
+        const maxAvailable = Math.max(0, (product.stock || 0) - inCart);
+        const qty = typeof qtyParam === 'number' ? qtyParam : (quantities[product._id] ?? (maxAvailable > 0 ? 1 : 0));
+        if (qty <= 0) {
+            window.alert('No more items available to add.');
+            return;
+        }
+        if (qty > maxAvailable) {
+            window.alert(`Cannot add ${qty} items. Only ${maxAvailable} available (considering items already in cart).`);
+            return;
+        }
         try {
             await addToCart(product._id, qty);
             setAddedFeedback(prev => ({ ...prev, [product._id]: true }));
+            // refresh cart
+            try {
+                const cart = await getCart();
+                if (cart?.data?.items) {
+                    const map = {};
+                    cart.data.items.forEach(it => {
+                        const id = it.productId?._id ?? it.productId;
+                        map[id] = it.quantity;
+                    });
+                    setCartItems(map);
+                    // update display quantity for this product based on new availability
+                    const newInCart = map[product._id] || 0;
+                    const newMax = Math.max(0, (product.stock || 0) - newInCart);
+                    setQuantities(prev => ({
+                        ...prev,
+                        [product._id]: newMax > 0 ? Math.min(prev[product._id] ?? 1, newMax) : 0
+                    }));
+                }
+            } catch (err) { console.warn('Failed to refresh cart', err); }
             setTimeout(() => {
                 setAddedFeedback(prev => {
                     const next = { ...prev };
@@ -166,6 +215,23 @@ const Products = () => {
             }
         };
         fetchProfile();
+        // fetch cart
+        const fetchCart = async () => {
+            try {
+                const cart = await getCart();
+                if (cart?.data?.items) {
+                    const map = {};
+                    cart.data.items.forEach(it => {
+                        const id = it.productId?._id ?? it.productId;
+                        map[id] = it.quantity;
+                    });
+                    setCartItems(map);
+                }
+            } catch (err) {
+                console.warn('Failed to fetch cart', err);
+            }
+        };
+        fetchCart();
     }, []);
 
     if (loading) return <div className="products-loading">Loading products...</div>;
@@ -223,64 +289,34 @@ const Products = () => {
 
                     <div className="products-grid">
                         {sortedProducts.map((p) => (
-                        <article key={p._id} className="product-card">
-                            <div className="product-media">
-                                {p.image ? (
-                                    <img src={p.image} alt={p.name} className="product-image" />
-                                ) : (
-                                    <div className="product-placeholder" />
-                                )}
-                                {p.stock === 0 && <span className="badge out">Out</span>}
-                                {p.stock > 0 && p.stock <= 5 && <span className="badge low">Low</span>}
-                                {p.topSelling && <span className="badge top">Top</span>}
-                                {p.offer && <span className="badge offer">{p.offer}</span>}
-                            </div>
-
-                            <div className="product-meta">
-                                <div className="product-body">
-                                    <h3 className="product-title">{p.name}</h3>
-                                    <div className="rating">
-                                        <span className="stars">{[0,1,2,3,4].map(i => (
-                                            <span key={i} className={i < Math.round(p.rating || 0) ? 'star filled' : 'star'}>★</span>
-                                        ))}</span>
-                                        <span className="rating-num">{(p.rating || 0).toFixed(1)}</span>
-                                    </div>
-                                    <p className="product-desc">{p.description || '—'}</p>
-                                </div>
-
-                                <div className="product-footer product-footer-col">
-                                    <div className="product-footer-row">
-                                        <div className="price">${p.price}</div>
-                                        <button onClick={() => setModalProduct(p)}>Details</button>
-                                    </div>
-                                    <div className="product-footer-row">
-                                        <div className="prod-qty-selector">
-                                            <button className="prod-qty-btn" onClick={() => updateQuantity(p._id, -1)}>&lt;</button>
-                                            <span className="prod-qty-val">{quantities[p._id] || 1}</span>
-                                            <button className="prod-qty-btn" onClick={() => updateQuantity(p._id, 1)}>&gt;</button>
-                                        </div>
-                                        <div className="product-add-wrapper">
-                                            {addedFeedback[p._id] && (
-                                                <span className="product-added-msg">Added!</span>
-                                            )}
-                                            <button onClick={() => handleAddToCart(p)} disabled={isBlocked} title={isBlocked ? 'Your account is blocked' : ''}>Add</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
+                        <ProductCard
+                            key={p._id}
+                            product={p}
+                            quantities={quantities}
+                            updateQuantity={updateQuantity}
+                            cartItems={cartItems}
+                            addedFeedback={addedFeedback}
+                            isBlocked={isBlocked}
+                            onAdd={handleAddToCart}
+                            onDetails={(prod) => setModalProduct(prod)}
+                        />
                         ))}
                     </div>
             </div>
-            {modalProduct && (
+            {modalProduct && (() => {
+            const inCart = cartItems[modalProduct._id] || 0;
+            const maxAvailable = Math.max(0, (modalProduct.stock || 0) - inCart);
+            return (
             <ProductModal
                 product={modalProduct}
+                cartQty={inCart}
+                maxAvailable={maxAvailable}
                 onClose={() => setModalProduct(null)}
                 onAdd={async (product, qty) => {
                     await handleAddToCart({ ...product, _id: product._id }, qty);
                 }}
             />
-            )}
+            ); })()}
         </div>
     );
 };

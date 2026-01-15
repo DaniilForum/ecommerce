@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './ProductModal.css';
 
-const ProductModal = ({ product, onClose, onAdd }) => {
+const ProductModal = ({ product, onClose, onAdd, cartQty = 0, maxAvailable = Infinity }) => {
     const overlayRef = useRef();
     const [qty, setQty] = useState(1);
     const [showFeedback, setShowFeedback] = useState(false);
@@ -13,15 +13,26 @@ const ProductModal = ({ product, onClose, onAdd }) => {
         return () => document.removeEventListener('keydown', onKey);
     }, [onClose]);
 
-    useEffect(() => setQty(1), [product]);
+    useEffect(() => {
+        const minQ = maxAvailable > 0 ? 1 : 0;
+        setQty(minQ);
+    }, [product, maxAvailable]);
 
     if (!product) return null;
 
-    const decrease = () => setQty(q => Math.max(1, q - 1));
-    const increase = () => setQty(q => q + 1);
+    const decrease = () => setQty(q => Math.max(maxAvailable > 0 ? 1 : 0, q - 1));
+    const increase = () => setQty(q => Math.min(maxAvailable, q + 1));
 
     // Handle add button click with feedback animation
     const handleAdd = () => {
+        if (qty <= 0) {
+            window.alert('No items available to add.');
+            return;
+        }
+        if (qty > maxAvailable) {
+            window.alert(`Cannot add ${qty}. Only ${maxAvailable} available.`);
+            return;
+        }
         onAdd(product, qty);
         setShowFeedback(true);
         setTimeout(() => setShowFeedback(false), 1000);
@@ -51,16 +62,16 @@ const ProductModal = ({ product, onClose, onAdd }) => {
                     <span className="rating-num">{(product.rating || 0).toFixed(1)}</span>
                 </div>
                 <p className="pm-desc">{product.description || '—'}</p>
-                <div className="pm-stock">Stock: <strong>{product.stock ?? 0}</strong></div>
+                <div className="pm-stock">Stock: <strong>{product.stock ?? 0}</strong>{typeof maxAvailable === 'number' && maxAvailable >= 0 ? ` — available: ${maxAvailable}` : ''}</div>
 
                 <div className="pm-actions">
                     <div className="pm-qty">
-                        <button onClick={decrease}>&lt;</button>
+                        <button onClick={decrease} disabled={qty <= (maxAvailable > 0 ? 1 : 0)}>&lt;</button>
                         <span className="pm-qty-val">{qty}</span>
-                        <button onClick={increase}>&gt;</button>
+                        <button onClick={increase} disabled={qty >= maxAvailable}>&gt;</button>
                     </div>
                     <div className="pm-add-wrapper">
-                        <button className="pm-add" onClick={handleAdd}>Add</button>
+                        <button className="pm-add" onClick={handleAdd} disabled={maxAvailable <= 0}>Add</button>
                         {showFeedback && (
                             <span className="pm-added-msg">Added!</span>
                         )}

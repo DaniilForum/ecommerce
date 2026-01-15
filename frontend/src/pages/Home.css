@@ -247,6 +247,10 @@
   overflow: hidden;
 }
 
+/* Prevent card from jumping when Add is clicked: disable button translate on Home */
+.home-container button:hover { transform: none !important; box-shadow: var(--shadow-sm) !important; }
+.home-container button:active { transform: none !important; }
+
 .carousel-arrow {
   position: absolute;
   top: 50%;
