@@ -46,6 +46,12 @@
   line-height: 1.6;
 }
 
+.home-logo { 
+  height: 100px;
+  margin-top: -120px; 
+  margin-bottom: 5px;
+}
+
 .home-cta-buttons {
   display: flex;
   gap: 16px;

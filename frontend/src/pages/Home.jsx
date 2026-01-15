@@ -208,9 +208,7 @@ const Home = () => {
       <div className="home-hero">
         <div className="home-hero-content">
           {isBlocked && <div className="home-blocked-notice">Your account is blocked. Adding to cart is disabled.</div>}
-          <img src={logo} alt="E-Shop Logo" style={
-            { height: '350px', marginTop: '-120px', marginBottom: '-95px' }
-            } />
+          <img src={logo} alt="E-Shop Logo" className="home-logo" />
           <h1>Welcome to E-Shop</h1>
           <p>Your premium destination for quality products and seamless shopping experience</p>
           <div className="home-cta-buttons">

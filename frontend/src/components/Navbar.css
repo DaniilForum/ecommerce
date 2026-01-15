@@ -1,12 +1,3 @@
-/* Global reset to ensure full width on mobile */
-body {
-  margin: 0;
-  padding: 0;
-}
-* {
-  box-sizing: border-box;
-}
-
 nav {
   background: var(--color-surface);
   box-shadow: var(--shadow-md);
@@ -60,6 +51,9 @@ nav .logo-link,
 nav .logo-link:hover {
   background: transparent;
   padding: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 /* Styles extracted from JSX */
@@ -70,10 +64,13 @@ nav .logo-link:hover {
 }
 
 .nav-logo {
-  height: 120px;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  display: block;
   object-fit: contain;
-  margin-top: -50px;
-  margin-bottom: -60px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .nav-search-form {
@@ -185,7 +182,8 @@ nav .logo-link:hover {
 }
 
 @media (max-width: 768px) {
-  .nav-logo { height: 48px; margin-top: 0; margin-bottom: 0; }
+  nav .logo-link { height: 32px; }
+  .nav-logo { height: 100%; }
   nav { padding: 8px 12px; }
   .nav-left { gap: 10px; }
   .nav-toggle { display: flex; }
@@ -205,8 +203,10 @@ nav .logo-link:hover {
   .nav-right a, .nav-right button { width: 100%; text-align:left; }
   .nav-user-dropdown { width: 100%; }
   .nav-right .nav-user-btn {
-    width: auto;
     margin-left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .nav-dropdown-menu { position: static; box-shadow: none; width: 100%; margin-top: 8px; }
 }
