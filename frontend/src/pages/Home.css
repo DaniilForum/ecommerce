@@ -247,9 +247,10 @@
   overflow: hidden;
 }
 
-/* Prevent card from jumping when Add is clicked: disable button translate on Home */
-.home-container button:hover { transform: none !important; box-shadow: var(--shadow-sm) !important; }
-.home-container button:active { transform: none !important; }
+/* Prevent card from jumping when Add is clicked: disable button translate on Home
+  but exclude carousel arrow buttons so they keep their position */
+.home-container button:not(.carousel-arrow):hover { transform: none !important; box-shadow: var(--shadow-sm) !important; }
+.home-container button:not(.carousel-arrow):active { transform: none !important; }
 
 .carousel-arrow {
   position: absolute;
@@ -268,13 +269,13 @@
   justify-content: center;
   font-size: 20px;
   color: #333;
-  transition: all 0.2s;
+  transition: none !important; /* ensure arrows don't animate */
 }
 
 .carousel-arrow:hover {
   background: #f8f9fa;
   box-shadow: 0 6px 8px rgba(0,0,0,0.15);
-  transform: translateY(-50%);
+  transform: translateY(-50%) !important; /* keep fixed vertical position */
 }
 
 .carousel-arrow.left { left: -15px; }

@@ -20,6 +20,19 @@ const Home = () => {
   const [isBlocked, setIsBlocked] = useState(false);
   const navigate = useNavigate();
   const popularRef = useRef(null);
+  const autoplayRef = useRef(null);
+  const pausedRef = useRef(false);
+  const itemWidthRef = useRef(320);
+
+  const computeItemWidth = () => {
+    if (!popularRef.current) return;
+    const first = popularRef.current.querySelector('.carousel-item');
+    if (!first) return;
+    const gapStyle = getComputedStyle(popularRef.current).gap;
+    const gap = gapStyle ? parseFloat(gapStyle) : 20;
+    const width = Math.round(first.getBoundingClientRect().width + gap);
+    itemWidthRef.current = width || 320;
+  };
 
   // Triplicate items to create a seamless infinite loop illusion
   // Set 1: Buffer left, Set 2: Main view, Set 3: Buffer right
@@ -31,21 +44,42 @@ const Home = () => {
       const scrollWidth = popularRef.current.scrollWidth;
       const oneSetWidth = scrollWidth / 3;
       popularRef.current.scrollLeft = oneSetWidth;
+      computeItemWidth();
     }
+  }, [popular]);
+
+  // Autoplay: scroll every few seconds, pause on hover
+  useEffect(() => {
+    const intervalMs = 3000;
+    if (!popularRef.current) return;
+    autoplayRef.current = setInterval(() => {
+      if (pausedRef.current) return;
+      // scroll by one item width for autoplay
+      try {
+        popularRef.current.scrollBy({ left: itemWidthRef.current, behavior: 'smooth' });
+      } catch (e) {
+        // ignore if element not available
+      }
+    }, intervalMs);
+    return () => clearInterval(autoplayRef.current);
   }, [popular]);
 
   // Handles the scrolling logic for the popular products carousel
   const scrollPopular = (direction) => {
     if (popularRef.current) {
       const { current } = popularRef;
-      const scrollAmount = 300;
-      if (direction === 'left') {
-        current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      } else {
-        current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      }
+      const scrollAmount = itemWidthRef.current || 300;
+      if (direction === 'left') current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      else current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
+
+  // Recompute item width on resize (responsive)
+  useEffect(() => {
+    const onResize = () => computeItemWidth();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [popular]);
 
   const updateQuantity = (productId, delta, max = Infinity) => {
     setQuantities(prev => {
@@ -225,7 +259,14 @@ const Home = () => {
         {loading ? <div className="home-loading">Loading...</div> : (
           <div className="carousel-wrapper">
             <button className="carousel-arrow left" onClick={() => scrollPopular('left')}>&lt;</button>
-            <div className="carousel-track" ref={popularRef}>
+            <div
+              className="carousel-track"
+              ref={popularRef}
+              onMouseEnter={() => { pausedRef.current = true; }}
+              onMouseLeave={() => { pausedRef.current = false; }}
+              onTouchStart={() => { pausedRef.current = true; }}
+              onTouchEnd={() => { pausedRef.current = false; }}
+            >
               {displayPopular.map((p, index) => (
                 <div key={`${p._id}-${index}`} className="carousel-item">
                   <ProductCard
@@ -273,15 +314,15 @@ const Home = () => {
         <h2>Why Choose Us?</h2>
         <div className="home-features">
           <div className="home-feature-card">
-            <h3>🛍️ Wide Selection</h3>
+            <h3>Wide Selection</h3>
             <p>Browse through our extensive catalog of products across multiple categories.</p>
           </div>
           <div className="home-feature-card">
-            <h3>🔒 Secure Payment</h3>
+            <h3>Secure Payment</h3>
             <p>Your transactions are protected with industry-leading security standards.</p>
           </div>
           <div className="home-feature-card">
-            <h3>⚡ Fast Delivery</h3>
+            <h3>Fast Delivery</h3>
             <p>Quick and reliable shipping to get your orders to you on time.</p>
           </div>
         </div>
