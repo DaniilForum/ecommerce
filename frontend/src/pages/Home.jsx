@@ -10,20 +10,24 @@ import './Products.css';
 import logo from '../assets/eshop_logo.png';
 
 const Home = () => {
+  // State for product lists
   const [popular, setPopular] = useState([]);
   const [newArrivals, setNewArrivals] = useState([]);
   const [loading, setLoading] = useState(true);
+  // State for cart management and UI
   const [quantities, setQuantities] = useState({});
   const [cartItems, setCartItems] = useState({});
   const [modalProduct, setModalProduct] = useState(null);
   const [addedFeedback, setAddedFeedback] = useState({});
   const [isBlocked, setIsBlocked] = useState(false);
   const navigate = useNavigate();
+  // Refs for carousel management
   const popularRef = useRef(null);
   const autoplayRef = useRef(null);
   const pausedRef = useRef(false);
   const itemWidthRef = useRef(320);
 
+  // Computes the width of a single carousel item (including gap)
   const computeItemWidth = () => {
     if (!popularRef.current) return;
     const first = popularRef.current.querySelector('.carousel-item');
@@ -34,8 +38,8 @@ const Home = () => {
     itemWidthRef.current = width || 320;
   };
 
-  // Triplicate items to create a seamless infinite loop illusion
-  // Set 1: Buffer left, Set 2: Main view, Set 3: Buffer right
+  // Triplicate items to create an infinite scroll illusion
+  // Set 1: Left buffer, Set 2: Main view, Set 3: Right buffer
   const displayPopular = popular.length > 0 ? [...popular, ...popular, ...popular] : [];
 
   // Initialize scroll position to the start of the middle set
@@ -48,13 +52,13 @@ const Home = () => {
     }
   }, [popular]);
 
-  // Autoplay: scroll every few seconds, pause on hover
+  // Autoplay: scrolls every few seconds, pauses on hover
   useEffect(() => {
     const intervalMs = 3000;
     if (!popularRef.current) return;
     autoplayRef.current = setInterval(() => {
       if (pausedRef.current) return;
-      // scroll by one item width for autoplay
+      // scroll by one item width
       try {
         popularRef.current.scrollBy({ left: itemWidthRef.current, behavior: 'smooth' });
       } catch (e) {
@@ -64,7 +68,7 @@ const Home = () => {
     return () => clearInterval(autoplayRef.current);
   }, [popular]);
 
-  // Handles the scrolling logic for the popular products carousel
+  // Manual carousel scrolling logic (left/right)
   const scrollPopular = (direction) => {
     if (popularRef.current) {
       const { current } = popularRef;
@@ -74,13 +78,14 @@ const Home = () => {
     }
   };
 
-  // Recompute item width on resize (responsive)
+  // Recompute item width on window resize (responsiveness)
   useEffect(() => {
     const onResize = () => computeItemWidth();
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, [popular]);
 
+  // Update local product quantity before adding to cart
   const updateQuantity = (productId, delta, max = Infinity) => {
     setQuantities(prev => {
       const minQty = max > 0 ? 1 : 0;
@@ -90,13 +95,16 @@ const Home = () => {
     });
   };
 
+  // Handle adding product to cart
   const handleAddToCart = async (product, qtyParam) => {
+    // Check for auth token
     const token = localStorage.getItem('authToken');
     if (!token) {
       navigate('/login');
       return;
     }
     try {
+      // Check if user is blocked
       const profile = await getProfile();
       if (profile?.data?.isBlocked) {
         setIsBlocked(true);
@@ -107,6 +115,7 @@ const Home = () => {
       console.warn('Failed checking profile', err);
     }
 
+    // Refresh cart data from server to check actual quantity
     let currentCartMap = { ...cartItems };
     try {
       const fresh = await getCart();
@@ -120,7 +129,7 @@ const Home = () => {
         setCartItems(map);
       }
     } catch (err) {
-      // ignore fetch error and fall back to local state
+      // ignore fetch error and use local state
       console.warn('Failed to refresh cart before validation', err);
     }
 
@@ -140,8 +149,7 @@ const Home = () => {
     try {
       await addToCart(product._id, qty);
       setAddedFeedback(prev => ({ ...prev, [product._id]: true }));
-      // Remove feedback message after 1 second
-      // refresh cart counts after successful add
+      // Refresh cart after successful addition
       try {
         const cart = await getCart();
         if (cart?.data?.items) {
@@ -151,7 +159,7 @@ const Home = () => {
             map[id] = it.quantity;
           });
           setCartItems(map);
-          // update display quantity for this product based on new availability
+          // update display quantity based on new availability
           const newInCart = map[product._id] || 0;
           const newMax = Math.max(0, (product.stock || 0) - newInCart);
           setQuantities(prev => ({
@@ -162,6 +170,7 @@ const Home = () => {
       } catch (err) {
         console.warn('Failed to refresh cart', err);
       }
+      // Remove success message after 1 second
       setTimeout(() => {
         setAddedFeedback(prev => {
           const next = { ...prev };
@@ -176,18 +185,17 @@ const Home = () => {
     }
   };
 
-  // Fetch data for Home page sections (Popular & New Arrivals)
+  // Load data for Home page sections (Popular & New Arrivals)
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
         const products = await getProducts();
         if (products && Array.isArray(products)) {
-          // 1. Top Selling (Carousel)
-          // 1. Top Selling (Carousel) — exclude out-of-stock
+          // 1. Popular (Carousel) — exclude out-of-stock items
           const topSelling = products.filter(p => p.topSelling && ((p.stock ?? 0) > 0));
           setPopular(topSelling);
 
-          // 2. New Arrivals (Top 5 by updatedAt) — exclude out-of-stock
+          // 2. New Arrivals (Top 5 by update date) — exclude out-of-stock items
           const available = products.filter(p => (p.stock ?? 0) > 0);
           const sortedByDate = [...available].sort((a, b) => {
             return new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0);
@@ -201,7 +209,7 @@ const Home = () => {
       }
     };
     fetchHomeData();
-    // also fetch cart contents (products and amount in cart)
+    // also fetch cart contents (products and quantities)
     const fetchCart = async () => {
       try {
         const cart = await getCart();
@@ -220,9 +228,7 @@ const Home = () => {
     fetchCart();
   }, []);
 
-  
-
-  // Checks if the user is blocked on component mount
+  // Check if user is blocked on component mount
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem('authToken');
@@ -239,7 +245,7 @@ const Home = () => {
 
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section (Banner) */}
       <div className="home-hero">
         <div className="home-hero-content">
           {isBlocked && <div className="home-blocked-notice">Your account is blocked. Adding to cart is disabled.</div>}
@@ -309,7 +315,7 @@ const Home = () => {
         )}
       </section>
 
-      {/* Why Choose Us */}
+      {/* Why Choose Us (Features) */}
       <section className="home-section">
         <h2>Why Choose Us?</h2>
         <div className="home-features">

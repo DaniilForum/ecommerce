@@ -28,3 +28,10 @@
     justify-content: center;
 }
 .prod-qty-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* hide buttons inside input field */
+.prod-qty-input::-webkit-outer-spin-button,
+.prod-qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
